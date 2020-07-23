@@ -1,0 +1,26 @@
+
+  .container {
+    display: flex;
+    width:100vw;
+    height: 100vh ;
+  }
+  
+  .container-logo img {
+    width: 50vw;
+    height: 100vh;
+    opacity: 40%;
+  }
+  
+  .container-form {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0 5%;
+  }
+  
+  .container-inf {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
