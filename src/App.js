@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import Button from './components/Button.js';
+import Login from '../src/Pages/Login/Login'
+
 function App() {
+  
   return (
-    <div>
-      <Button />
-    </div>
-  );
-}
+    <Login />
+    )
+  }
 
 export default App;
