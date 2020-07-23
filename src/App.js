@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
+import Login from '../src/Pages/Login/Login'
 
 function App() {
+  
   return (
-    <div>
-      <h1>Hello Word!</h1>
-    </div>
-  );
-}
+    <Login />
+    )
+  }
 
 export default App;
