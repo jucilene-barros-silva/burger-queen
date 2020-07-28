@@ -3,7 +3,6 @@ import './Login.css';
 import FormLogin from '../../Components/FormLogin.js';
 import Logo from '../../Components/Logo.js';
 
-
 export const Login = () => {
 
 	return (
@@ -17,6 +16,5 @@ export const Login = () => {
 		</div>
 	);
 };
-
 
 export default Login;
