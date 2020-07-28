@@ -4,7 +4,7 @@ import '../Login/Login.css';
 import BtButton from '../../Components/Button.js';
 import Input from '../../Components/Input.js';
 import LinkRel from '../../Components/Link'
-// import Checkbox from '../../Components/Checkbox.js';
+import BtRadio from '../../Components/BtRadio.js';
 //import firebaseConfig from '../../Firebase';
 // import { FormControl } from '@material-ui/core';
 
@@ -44,8 +44,7 @@ export const Register = () => {
           <Input id="name" name="name" label="Name" type="text" setName={setName}/>
           <Input id="email" name="email" label="E-mail" type="email" setEmail={setEmail}/>
           <Input id="password" name="password" label="Senha" type="password" setSenha={setSenha}/>
-          {/* <Checkbox label1="Salão" value1="setSalao" name1="Cozinha" onChange= {setSalao} />
-          <Checkbox label2="Cozinha" value2="setCozinha" name2="Salão" onChange= {setCozinha} />        */}
+          <BtRadio value1="setSalao" value2="setCozinha" label1="Salão" label2="Cozinha" onChange= {setSalao} /> 
           <BtButton name="Cadastrar" />
           <div className="container-inf">
                 <LinkRel name="Tem uma conta? Conecte-se!" />
