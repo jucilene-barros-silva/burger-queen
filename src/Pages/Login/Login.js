@@ -3,7 +3,7 @@ import './Login.css';
 import FormLogin from '../../Components/FormLogin.js';
 import Logo from '../../Components/Logo.js';
 
-export const Login = () => {
+const Login = () => {
 
 	return (
 		<div className="container">

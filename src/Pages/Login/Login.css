@@ -11,11 +11,11 @@
 
   }
 
-   .container-logo .logo {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   width: 60%;
+  .container-logo .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
   }
   
   .container-form {
