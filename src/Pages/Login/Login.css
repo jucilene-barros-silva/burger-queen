@@ -5,16 +5,17 @@
   
   .container-logo {
     background-image: url(../../img/background.svg) ;
+    background-repeat: no-repeat;
     width: 80%;
     height: 100vh;
-    
+
   }
 
    .container-logo .logo {
    display: flex;
    align-items: center;
    justify-content: center;
-   width: 80%;
+   width: 60%;
   }
   
   .container-form {

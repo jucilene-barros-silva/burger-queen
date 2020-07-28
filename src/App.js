@@ -1,11 +1,16 @@
 import React from 'react';
 import './App.css';
-import Login from '../src/Pages/Login/Login'
+import Login from '../src/Pages/Login/Login.js';
+import Header from './Components/Header.js'
+
 
 function App() {
   
   return (
-    <Login />
+   <>
+     <Header />
+     <Login />     
+   </>
     )
   }
 
