@@ -4,19 +4,16 @@
   }
   
   .container-logo {
-    background-image: url(../../img/background.svg) ;
-    background-repeat: no-repeat;
-    width: 80%;
+    background-image: url(../../img/back-logo.svg);
+    background-repeat: no-repeat;    
+    width: 60%;
     height: 100vh;
-
   }
 
-  .container-logo .logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 80%;
-  }
+ .cadeado {
+   width: 60px;
+   height: 60px;   
+ }
   
   .container-form {
     align-items: center;
@@ -25,9 +22,26 @@
     flex-direction: column;
     margin: 0 5%;
   }
+
+  .container-form .cadeado{
+    margin-bottom: 10px;
+  }
   
+  .container-form h2{
+    font-family: 'Arial' ;
+    font-weight: bold;   
+    color: var(--primary-color);
+    margin-bottom: 50px;
+  }
+
   .container-inf {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
+  }
+  
+  .container-inf p {   
     margin-top: 10px;
+    font-family: 'Arial' ;
+    color:var(--primary-color);
   }

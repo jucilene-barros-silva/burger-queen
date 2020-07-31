@@ -1,19 +1,21 @@
 import React from 'react';
 import { TextField } from '@material-ui/core';
 
-const Input = (props) => {
+const Input = ({ id, label, name, autoComplete, value, setValue, ...props }) => {
   return (
     <TextField
       variant="outlined"
       margin="normal"
       required
       fullWidth
-      id={props.id}
-      label={props.label}
-      name={props.name}
-      autoComplete={props.type}
+      id={id}
+      label={label}
+      name={name}
+      autoComplete={autoComplete}
       autoFocus
-      value={props.setEmail}
+      value={value}
+      setValue={setValue}
+      {...props}
     />
   );
 };

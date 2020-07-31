@@ -1,16 +1,16 @@
 import React from 'react';
 import Button from './Button';
-import Logo from './Logo.js'
+import Logo from './Logo.js';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
   return (
    <nav className="header">
      <Logo />
-     <li><Button name="Salão" /></li>
-     <li><Button name="Cozinha" /></li>
-     <li><Button name="Logout" /></li>
+     <NavLink to="salao"><Button name="salao" /></NavLink>
+     <NavLink to="cozinha"><Button name="Cozinha" /></NavLink>
+     <NavLink to="logout"><Button name="Logout" /></NavLink>
    </nav>
   )
 }
-
 export default Header;
