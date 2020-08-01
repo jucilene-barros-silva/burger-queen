@@ -4,26 +4,33 @@ import Input from '../Components/Input.js';
 import BtRadio from '../Components/BtRadio.js';
 import { Link } from 'react-router-dom';
 import firebase from '../Firebase.js';
+import 'firebase/auth';
+import 'firebase/firestore';
 
 const FormRegister = () => {
   const [ form, setForm ] = useState({
 		name: '',
 		email: '',
-		password: '',				
+    password: '',
+    occupation: '',			
 	})
 
+  // const [ salao, setSalao ] = useState({occupation:''})
+  // const [cozinha, setCozinha ] = useState({occupation:''})
+
   function handleChange({ target }) {
-    const {id, value} = target;
-    console.log(setForm({ ...form, [id]: value }))
+    const {id, value, value1, value2 } = target;
+    console.log(setForm({ ...form, [id]: value, [value1]:value, [value2]:value }))
   }
 
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
     const name = form.name;
     const email = form.email;
     const password = form.password;
-
-  await firebase.auth().createUserWithEmailAndPassword(email, password)
+    const occupation =  form.occupation;
+  
+    firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((res) => alert("Usuário Cadastrado"))
     .then((res) => {
       const db = firebase.firestore();
@@ -32,6 +39,7 @@ const FormRegister = () => {
         userUid: authUid,
         name,
         email,
+        occupation,
       }).then(
         firebase.auth().currentUser.updateProfile({
           displayName: name,
@@ -52,10 +60,14 @@ const FormRegister = () => {
       <Input id="password" name="password" label="Senha" type="password" value={form.password} onChange={handleChange}  setValue={setForm.password} />
 
       <BtRadio
-        value1="setSalao"
-        value2="setCozinha"
+        onChange={handleChange}
+        value1="hall"
+        value2="kitchen"
         label1="Salão"
-        label2="Cozinha"      
+        label2="Cozinha"
+        name={form.occupation}
+        setValue1={setForm.occupation}
+        setValue2={setForm.occupation}
       />
 
       <BtButton name="Cadastrar" />
