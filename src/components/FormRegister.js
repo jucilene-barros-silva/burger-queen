@@ -4,17 +4,21 @@ import Input from '../Components/Input.js';
 import BtRadio from '../Components/BtRadio.js';
 import { Link } from 'react-router-dom';
 import firebase from '../Firebase.js';
+import 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+
 
 const FormRegister = () => {
-  const [ form, setForm ] = useState({
+  const navigate = useNavigate();
+  const [ form, setform ] = useState({
 		name: '',
 		email: '',
-		password: '',				
+		password: '',
 	})
 
   function handleChange({ target }) {
     const {id, value} = target;
-    console.log(setForm({ ...form, [id]: value }))
+    console.log(setform({ ...form, [id]: value }))
   }
 
   async function handleSubmit(e) {
@@ -24,7 +28,9 @@ const FormRegister = () => {
     const password = form.password;
 
   await firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then((res) => alert("Usuário Cadastrado"))
+    .then((res) => {
+      alert("Usuário Cadastrado")
+      navigate('/salao') })
     .then((res) => {
       const db = firebase.firestore();
       const authUid = firebase.auth().currentUser.uid;
@@ -41,11 +47,11 @@ const FormRegister = () => {
 
     <form noValidate autoComplete="off"  onSubmit={handleSubmit} >
 
-      <Input id="name" name="name" label="Name" type="text" value={form.name} onChange={handleChange} setValue={setForm.name} />
+      <Input id="name" name="name" label="Name" type="text" value={form.name} onChange={handleChange} setValue={setform.name} />
 
-      <Input id="email" name="email" label="E-mail" type="email" value={form.email} onChange={handleChange} setValue={setForm.email}  />
+      <Input id="email" name="email" label="E-mail" type="email" value={form.email} onChange={handleChange} setValue={setform.email}  />
 
-      <Input id="password" name="password" label="Senha" type="password" value={form.password} onChange={handleChange}  setValue={setForm.password} />
+      <Input id="password" name="password" label="Senha" type="password" value={form.password} onChange={handleChange}  setValue={setform.password} />
 
       <BtRadio
         value1="setSalao"
@@ -57,7 +63,7 @@ const FormRegister = () => {
       <BtButton name="Cadastrar" />
       
         <div className="container-inf">
-          <p>"Tem uma conta?<Link>Conecte-se!"</Link></p>
+          <p>"Tem uma conta?<Link to='/'>Conecte-se!"</Link></p>
         </div>
 		</form>
   )

@@ -1,7 +1,7 @@
 import React from 'react';
 import {RadioGroup, FormControlLabel, FormControl, Radio} from '@material-ui/core'
 
-const BtRadio = (props) => {
+const BtRadio = ({props}) => {
 
   return (
     <FormControl component="fieldset">
