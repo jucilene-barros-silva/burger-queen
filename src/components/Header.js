@@ -1,12 +1,12 @@
 import React from 'react';
 import Button from './Button';
-import { NavLink, useNavigate} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import firebase from '../Firebase.js';
 import 'firebase/auth';
 import 'firebase/firestore';
 
 const Header = () => {
-  const navigate = useNavigate();
+  
 
   function logout(e) {
     e.preventDefault();
@@ -14,17 +14,17 @@ const Header = () => {
       .auth()
       .signOut()
       .then(() => {
-        navigate('/')
+        window.location.href = '/';
       })
       .catch(console.error);
   };
-
+  
   return (
   <nav className="header">
     
     <NavLink to="salao"><Button name="salao" /></NavLink>
     <NavLink to="cozinha"><Button name="Cozinha" /></NavLink>
-    <NavLink to="logout"><Button name="Logout" onClick={logout}/></NavLink>
+    <NavLink to="/"><Button name="Logout" onClick={logout}/></NavLink>
   </nav>
   )
 }

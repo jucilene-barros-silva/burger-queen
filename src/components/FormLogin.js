@@ -52,7 +52,18 @@ const FormLogin = () => {
 			await firebase.auth().signInWithEmailAndPassword(email, password)
 			.then((res) => alert("Logado!!!"))
 			.then((user => console.log(user.user.uid)))
-			.catch((e) => alert("Erro"))
+			.catch((error) => {
+				if (error.code === 'auth/wrong-password') {
+					return 'Senha incorreta!';
+				}
+				if (error.code === 'auth/user-not-found') {
+					return 'E-mail não localizado!';
+				}
+				if (error.code === 'auth/invalid-email') {
+					return 'E-mail invalido!';
+				}
+				return `Codigo de error: ${error.code}`;
+			});
 		}
 
 		return (
