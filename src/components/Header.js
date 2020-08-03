@@ -1,15 +1,30 @@
 import React from 'react';
 import Button from './Button';
-import Logo from './Logo.js';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate} from 'react-router-dom';
+import firebase from '../Firebase.js';
+import 'firebase/auth';
+import 'firebase/firestore';
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  function logout(e) {
+    e.preventDefault();
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        navigate('/')
+      })
+      .catch(console.error);
+  };
+
   return (
   <nav className="header">
-    <Logo />
+    
     <NavLink to="salao"><Button name="salao" /></NavLink>
     <NavLink to="cozinha"><Button name="Cozinha" /></NavLink>
-    <NavLink to="logout"><Button name="Logout" /></NavLink>
+    <NavLink to="logout"><Button name="Logout" onClick={logout}/></NavLink>
   </nav>
   )
 }

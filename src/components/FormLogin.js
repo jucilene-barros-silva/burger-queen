@@ -1,10 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BtButton from '../../src/Components/Button.js';
 import Input from '../../src/Components/Input.js';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import firebase from '../Firebase.js';
+import 'firebase/auth';
+import 'firebase/firestore';
+
 
 const FormLogin = () => {
+		
+	const navigate = useNavigate();
+
+  useEffect( () => {
+    
+    const db = firebase.firestore();
+    firebase.auth().onAuthStateChanged( (user) => {
+      if(user){
+        db.collection('employees')
+        .doc(user.uid)
+        .get()
+        .then( user => {
+          if(user.data().occupation === 'hall'){
+              navigate('/hall')
+          } else {
+            navigate('/kitchen')
+          }
+        });
+      } else {
+        navigate('/')
+      };
+
+    });
+	}, [navigate])
+	
     const [form, setform] = useState({
 			email: '',
 			password: ''
@@ -22,6 +51,7 @@ const FormLogin = () => {
 			
 			await firebase.auth().signInWithEmailAndPassword(email, password)
 			.then((res) => alert("Logado!!!"))
+			.then((user => console.log(user.user.uid)))
 			.catch((e) => alert("Erro"))
 		}
 
