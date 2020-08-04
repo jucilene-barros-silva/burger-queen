@@ -11,12 +11,10 @@ import React from 'react';
 //     { options.map((option)=> (     
 //         <FormControlLabel value={value} control={<Radio />} label={option} name={option} />))}
 //   </RadioGroup >
-//   </FormControl>
-   
+//   </FormControl>   
 //     </>
 //   )
 //     }
-
 //  export default BtRadio;
 
 const BtRadio =({ options, value, label, setValue, text, onChange, name, ...props}) => {
