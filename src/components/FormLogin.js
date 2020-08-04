@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import BtButton from '../../src/Components/Button.js';
 import Input from '../../src/Components/Input.js';
 import { Link } from 'react-router-dom';
@@ -71,6 +71,7 @@ const FormLogin = () => {
   return (
     <form noValidate autoComplete="off" onSubmit={handleSubmit}>
       <Input
+        autoFocus ="true"
         id="email"
         name="email"
         label="E-mail"
@@ -79,7 +80,6 @@ const FormLogin = () => {
         onChange={handleChange}
         setValue={setform.email}
       />
-      {error && <SimpleAlerts severity="error">{error}</SimpleAlerts>}
 
       <Input
         id="password"
@@ -90,7 +90,7 @@ const FormLogin = () => {
         onChange={handleChange}
         setValue={setform.password}
       />
-      {/* {error && <SimpleAlerts severity="error">{error}</SimpleAlerts>} */}
+      {error && <SimpleAlerts severity="error">{error}</SimpleAlerts>}<br/>
 
       <BtButton name="Acessar" />
 

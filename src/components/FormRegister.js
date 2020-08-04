@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import BtButton from '../Components/Button.js';
 import Input from '../Components/Input.js';
 import BtRadio from '../Components/BtRadio.js';
@@ -16,67 +16,63 @@ const FormRegister = () => {
     password: '',			
   })
   const [ occupation, setOccupation ] = useState('')
-  const [errorName, setErrorName] = useState(false);
-  const [errorEmail, setErrorEmail] = useState(false);
-  const [errorPassword, setErrorPassword] = useState(false);
-  const [errorOccupation, setErrorOccupation] = useState(false);
+  const [error, setError] = useState(false);
+  
   const navigate = useNavigate();
 
   function validation() {
-    setErrorName(false);
-    setErrorEmail(false);
-    setErrorPassword(false);
-    setErrorOccupation(false);
+    setError(false);
 
     let isRight = true;
     if (!form.name) {
-      setErrorName(true);
+      setError('Por favor, preencha seu nome');
       isRight = false;
     }
     if  
       (!(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/.test(form.email))){
-      setErrorEmail('Formato de e-mail inválido');
+        setError('Formato de e-mail inválido');
     }
     if (!form.email) {
-      setErrorEmail('Email obrigatório');
+      setError('Email obrigatório');
       isRight = false;
     }
-    if (!("^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,}$".test(form.password))){
-      setErrorPassword('Mínimo 4 caracteres, pelo menos 1 letra e 1 número');
+    if (form.password.length <5 ){
+      setError('Sua senha deve ter pelo menos 6 caracteres');
+      isRight = false;
     }
     if (!form.password) {
-      setErrorPassword(true);
+      setError('Sua senha deve ter pelo menos 6 caracteres');
       isRight = false;
     }
     if (!occupation) {
-      setErrorOccupation('Escolha uma das opções');
+      setError('Escolha uma das opções');
       isRight = false;
     }
   
     return isRight;
   }
 
-  useEffect( () => {
+  // useEffect( () => {
     
-    const db = firebase.firestore();
-    firebase.auth().onAuthStateChanged( (user) => {
-      if(user){
-        db.collection('employees')
-        .doc(user.uid)
-        .get()
-        .then( user => {
-          if(user.data().occupation === 'hall'){
-              navigate('/hall')
-          } else {
-            navigate('/kitchen')
-          }
-        });
-      } else {
-        navigate('/')
-      };
+  //   const db = firebase.firestore();
+  //   firebase.auth().onAuthStateChanged( (user) => {
+  //     if(user){
+  //       db.collection('employees')
+  //       .doc(user.uid)
+  //       .get()
+  //       .then( user => {
+  //         if(user.data().occupation === 'hall'){
+  //             navigate('/hall')
+  //         } else {
+  //           navigate('/kitchen')
+  //         }
+  //       });
+  //     } else {
+  //       navigate('/')
+  //     };
 
-    });
-  }, [navigate])
+  //   });
+  // }, [navigate])
 
   function handleChange({ target }) {
     const {id, value} = target;
@@ -88,15 +84,19 @@ const FormRegister = () => {
     const name = form.name;
     const email = form.email;
     const password = form.password;
-    // const radio = occupation;
+    const radio = occupation;
     
     const isRight = validation();
 
     if(isRight){
       firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then((res) => { 
-      alert("Usuário Cadastrado")
-    })
+      .then( user => {
+                if(radio === 'hall'){
+                    navigate('/hall')
+                } else {
+                  navigate('/kitchen')
+                }
+              })
     .then((res) => {
       const db = firebase.firestore();
       const authUid = firebase.auth().currentUser.uid;
@@ -120,40 +120,19 @@ const FormRegister = () => {
 
     <form noValidate autoComplete="off"  onSubmit={handleSubmit} >
 
-      <Input id="name" name="name" label="Name" type="text" value={form.name} onChange={handleChange} setValue={setForm.name} />
-      
-      {errorName && (<SimpleAlerts severity="error">Por favor, preencha seu nome</SimpleAlerts>)}
-      
+      <Input autoFocus = "true" id="name" name="name" label="Name" type="text" value={form.name} onChange={handleChange} setValue={setForm.name} />
+            
       <Input id="email" name="email" label="E-mail" type="email" value={form.email} onChange={handleChange} setValue={setForm.email}  />
-      
-      {errorEmail && (<SimpleAlerts severity="error">{errorEmail}</SimpleAlerts>)}
       
       <Input id="password" name="password" label="Senha" type="password" value={form.password} onChange={handleChange}  setValue={setForm.password} />
       
-      {errorPassword && (<SimpleAlerts severity="error">Sua senha deve ter no mínimo 4 caracteres, pelo menos 1 letra e 1 número</SimpleAlerts>)}
-      
       <BtRadio id="hall" type="radio"  value="hall" name="occupation" text="Salão" htmlFor="hall"  onChange={e=> setOccupation(e.target.value)}/>
-      
-      {errorEmail && (<SimpleAlerts severity="error">{errorEmail}</SimpleAlerts>)}
-      
+            
       <BtRadio id="kitchen" type="radio" value="kitchen" name="occupation" text="Cozinha" htmlFor="kitchen" onChange={e=> setOccupation(e.target.value)}/>
       
-      {errorOccupation && (<SimpleAlerts severity="error">{errorOccupation}</SimpleAlerts>)}
+      {error && (<SimpleAlerts severity="error">{error}</SimpleAlerts>)}
       
-      {/* <BtRadio
-        onChange={handleChange}
-        value={form.occupation}
-        value1="hall"
-        value2="kitchen"
-        id="hall"
-        id="kitchen"
-        label1="Salão"
-        label2="Cozinha"
-        setValue1={setForm.occupation}
-        setValue2={setForm.occupation}
-      />
-      
-      <BtButton name="Cadastrar" /> */}
+      <BtButton name="Cadastrar" /> 
       
         <div className="container-inf">
           <p>"Tem uma conta?<Link to="/">Conecte-se!"</Link></p>

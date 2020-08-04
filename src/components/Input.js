@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextField } from '@material-ui/core';
 
-const Input = ({ id, label, name, autoComplete, value, setValue, ...props }) => {
+const Input = ({ autoFocus, id, label, name, autoComplete, value, setValue, ...props }) => {
   return (
     <TextField
       variant="outlined"
@@ -12,7 +12,7 @@ const Input = ({ id, label, name, autoComplete, value, setValue, ...props }) => 
       label={label}
       name={name}
       autoComplete={autoComplete}
-      autoFocus
+      autoFocus={autoFocus}
       value={value}
       setValue={setValue}
       {...props}
