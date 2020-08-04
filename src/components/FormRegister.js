@@ -4,21 +4,24 @@ import Input from '../Components/Input.js';
 import BtRadio from '../Components/BtRadio.js';
 import { Link } from 'react-router-dom';
 import firebase from '../Firebase.js';
+import 'firebase/auth';
 import 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 
 const FormRegister = () => {
   const navigate = useNavigate();
+  
   const [ form, setform ] = useState({
 		name: '',
-		email: '',
-		password: '',
-	})
+    email: '',
+    occupation: '',
+  })
+  
+  // const [ occupation, setOccupation ] = useState('');
 
   function handleChange({ target }) {
-    const {id, value} = target;
-    console.log(setform({ ...form, [id]: value }))
+    const {name, value} = target;
+    setform({ ...form, [name]: value})
   }
 
   async function handleSubmit(e) {
@@ -26,11 +29,18 @@ const FormRegister = () => {
     const name = form.name;
     const email = form.email;
     const password = form.password;
-
-  await firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then((res) => {
-      alert("Usuário Cadastrado")
-      navigate('/salao') })
+    const occupation = form.occupation;
+    
+    await firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then(res => {   
+      alert('Cadastrado')
+        if(occupation === 'hall') {
+        navigate('/hall')      
+      
+      } else {
+        navigate('/kitchen')
+      }
+    })
     .then((res) => {
       const db = firebase.firestore();
       const authUid = firebase.auth().currentUser.uid;
@@ -38,7 +48,12 @@ const FormRegister = () => {
         userUid: authUid,
         name,
         email,
-      })
+        occupation,
+      }).then(
+        firebase.auth().currentUser.updateProfile({
+          displayName: name,
+        })
+      )
     .catch((e) => alert("Erro no cadastro"))
     })
   };    
@@ -47,23 +62,20 @@ const FormRegister = () => {
 
     <form noValidate autoComplete="off"  onSubmit={handleSubmit} >
 
-      <Input id="name" name="name" label="Name" type="text" value={form.name} onChange={handleChange} setValue={setform.name} />
+      <Input id="name" name="name" label="Name" type="text" value={form.name} onChange={handleChange} setValue={setform.name} autofocus />
 
       <Input id="email" name="email" label="E-mail" type="email" value={form.email} onChange={handleChange} setValue={setform.email}  />
 
       <Input id="password" name="password" label="Senha" type="password" value={form.password} onChange={handleChange}  setValue={setform.password} />
 
-      <BtRadio
-        value1="setSalao"
-        value2="setCozinha"
-        label1="Salão"
-        label2="Cozinha"      
-      />
+      <BtRadio id="hall" type="radio"  value='hall' name="radio" text="Salão" onChange={handleChange}  setValue={setform.occupation} />
+
+      <BtRadio id="kitchen" type="radio" value='kitcken' name="radio" text="Cozinha" onChange={handleChange} setValue={setform.occupation}/>      
 
       <BtButton name="Cadastrar" />
       
         <div className="container-inf">
-          <p>"Tem uma conta?<Link to='/'>Conecte-se!"</Link></p>
+          <p>"Tem uma conta?<Link to="/">Conecte-se!"</Link></p>
         </div>
 		</form>
   )

@@ -12,7 +12,6 @@ const Input = ({ id, label, name, autoComplete, value, setValue, ...props }) => 
       label={label}
       name={name}
       autoComplete={autoComplete}
-      autoFocus
       value={value}
       setValue={setValue}
       {...props}

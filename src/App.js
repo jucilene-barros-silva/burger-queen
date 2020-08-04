@@ -3,21 +3,21 @@ import './App.css';
 import Login from '../src/Pages/Login/Login.js'
 import Register from '../src/Pages/Register/Register.js';
 import Default from '../src/Pages/Default/Default.js';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Cozinha from './Pages/Cozinha/Cozinha.js'
-import Salao from './Pages/Salao/Salao.js'
+import Hall from '../src/Pages/Hall/Hall.js';
+import Kitchen from '../src/Pages/Kitchen/Kitchen.js';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
 
-function App() {  
-  return (
+export default function App() {
+
+  return(
     <BrowserRouter>
       <Routes>
-        <Route exact path="/" element={<Login />} />
-        <Route path="register" element={<Register />}/>
-        <Route path="salao" element={<Salao />}/>
-        <Route path="cozinha" element={<Cozinha />}/>
+        <Route path='/' element={<Login/>}/> 
+        <Route path='/register' element={<Register/>}/> 
+        <Route path='/hall' element={<Hall/>}/> 
+        <Route path='/kitchen' element={<Kitchen/>}/>
         <Route path="*" element={<Default />}/>
-      </Routes>    
+      </Routes>
     </BrowserRouter>
-    )
-  }
-export default App;
+  );
+}

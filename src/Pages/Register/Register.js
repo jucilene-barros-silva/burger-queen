@@ -10,7 +10,7 @@ export const Register = () => {
 			<div className="container-form">
 				<Icone />
 				<h2>CADASTRO</h2>
-				<FormRegister />
+				{ <FormRegister /> }
 			</div>
 		</div>
 	)
