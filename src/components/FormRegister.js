@@ -17,6 +17,10 @@ const FormRegister = () => {
   })
   const [ occupation, setOccupation ] = useState('')
   const [error, setError] = useState(false);
+
+  const handleChangeRadio = (event) => {
+    setOccupation(event.target.value);
+  };
   
   const navigate = useNavigate();
 
@@ -126,9 +130,10 @@ const FormRegister = () => {
       
       <Input id="password" name="password" label="Senha" type="password" value={form.password} onChange={handleChange}  setValue={setForm.password} />
       
-      <BtRadio id="hall" type="radio"  value="hall" name="occupation" text="Salão" htmlFor="hall"  onChange={e=> setOccupation(e.target.value)}/>
+      {/* <BtRadio id="hall" type="radio"  value="hall" name="occupation" text="Salão" htmlFor="hall"  onChange={e=> setOccupation(e.target.value)}/>
             
-      <BtRadio id="kitchen" type="radio" value="kitchen" name="occupation" text="Cozinha" htmlFor="kitchen" onChange={e=> setOccupation(e.target.value)}/>
+      <BtRadio id="kitchen" type="radio" value="kitchen" name="occupation" text="Cozinha" htmlFor="kitchen" onChange={e=> setOccupation(e.target.value)}/> */}
+      <BtRadio value= {occupation} onChange={handleChangeRadio}/>
       
       {error && (<SimpleAlerts severity="error">{error}</SimpleAlerts>)}
       
