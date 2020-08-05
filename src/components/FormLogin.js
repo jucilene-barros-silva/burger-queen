@@ -1,36 +1,22 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState} from 'react';
 import BtButton from '../../src/Components/Button.js';
 import Input from '../../src/Components/Input.js';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import firebase from '../Firebase.js';
 import 'firebase/auth';
 import 'firebase/firestore';
 import SimpleAlerts from './Alert.js';
 
+function findUserRole(uid) {
+return firebase.firestore().collection('employees').doc(uid).get()
+  .then((res)=> res.data().occupation) 
+}
+
+
 const FormLogin = () => {
   const navigate = useNavigate();
-	const [error, setError] = useState(false);
+  const [error, setError] = useState(false);
 
-  useEffect(() => {
-    const db = firebase.firestore();
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        db.collection('employees')
-          .doc(user.uid)
-          .get()
-          .then((user) => {
-            if (user.data().occupation === 'hall') {
-              navigate('/hall');
-            } else {
-              navigate('/kitchen');
-            }
-          });
-      } else {
-        navigate('/');
-      }
-    });
-  }, [navigate]);
 
   const [form, setform] = useState({
     email: '',
@@ -42,17 +28,21 @@ const FormLogin = () => {
     console.log(setform({ ...form, [id]: value }));
   }
 
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
     const email = form.email;
     const password = form.password;
 
-    await firebase
+  firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then((res) => alert('Logado!!!'))
-			.then((user) => console.log(user.user.uid))
-			// .catch((error)=> alert('error'))
+      .then((res) => findUserRole(res.user.uid))
+      .then((user) => {
+      if(user === 'hall'){
+        navigate('/hall')
+    } else {
+      navigate('/kitchen')
+    }})
       .catch((error) => {
         if (error.code === 'auth/wrong-password') {
           return setError('Senha incorreta!');

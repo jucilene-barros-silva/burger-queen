@@ -12,9 +12,15 @@ import SimpleAlerts from './Alert.js'
 const FormRegister = () => {
   const [ form, setForm ] = useState({
 		name: '',
-		email: '',
-    password: '',			
+    email: '',
+    occupation: '',
   })
+
+  function handleChange({ target }) {
+    const {name, value} = target;
+    setForm({ ...form, [name]: value})
+  }
+
   const [ occupation, setOccupation ] = useState('')
   const [error, setError] = useState(false);
 
@@ -56,34 +62,9 @@ const FormRegister = () => {
     return isRight;
   }
 
-  // useEffect( () => {
-    
-  //   const db = firebase.firestore();
-  //   firebase.auth().onAuthStateChanged( (user) => {
-  //     if(user){
-  //       db.collection('employees')
-  //       .doc(user.uid)
-  //       .get()
-  //       .then( user => {
-  //         if(user.data().occupation === 'hall'){
-  //             navigate('/hall')
-  //         } else {
-  //           navigate('/kitchen')
-  //         }
-  //       });
-  //     } else {
-  //       navigate('/')
-  //     };
 
-  //   });
-  // }, [navigate])
 
-  function handleChange({ target }) {
-    const {id, value} = target;
-    console.log(setForm({ ...form, [id]: value}))
-  }
-
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const name = form.name;
     const email = form.email;
