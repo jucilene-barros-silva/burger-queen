@@ -8,9 +8,6 @@ import FormLabel from '@material-ui/core/FormLabel';
 // import {RadioGroup, FormControlLabel, FormControl, Radio} from '@material-ui/core'
 
 const BtRadio = ({value, onChange}) => {
-  
-  
-
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">Cargo</FormLabel>
