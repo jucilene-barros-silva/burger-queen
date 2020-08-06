@@ -1,6 +1,45 @@
-
-.card {
-  background-color: red;
-  margin:10px;
-  padding:10px;
+.hall {
+  background: silver
 }
+.menu {
+  width: 50%;
+  background: blueviolet;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.card-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.card { 
+  font-family: Poppins;
+  font-family: Poppins;
+  background: white;
+  border-radius: 5px;
+  margin: 10px;
+  text-align: center;
+  
+}
+.card h5 {
+  background: white;
+}
+.card p {
+  font-weight: bold;
+  color: red;
+}
+
+.card img {
+  width: 150px;
+  height: 80px;
+  border-radius: 5px 5px 0 0;  
+}
+
+
+

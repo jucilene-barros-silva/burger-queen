@@ -5,8 +5,7 @@ import firebase from '../Firebase.js';
 import 'firebase/auth';
 import 'firebase/firestore';
 
-const Header = () => {
-  
+const Header = () => {  
 
   function logout(e) {
     e.preventDefault();
@@ -20,10 +19,9 @@ const Header = () => {
   };
   
   return (
-  <nav className="header">
-    
-    <NavLink to="salao"><Button name="salao" /></NavLink>
-    <NavLink to="cozinha"><Button name="Cozinha" /></NavLink>
+  <nav className="header">    
+    <NavLink to="hall"><Button name="salao" /></NavLink>
+    <NavLink to="kitchen"><Button name="Cozinha" /></NavLink>
     <NavLink to="/"><Button name="Logout" onClick={logout}/></NavLink>
   </nav>
   )
