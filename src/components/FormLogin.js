@@ -8,7 +8,7 @@ import 'firebase/firestore';
 import SimpleAlerts from './Alert.js';
 
 function findUserRole(uid) {
- return firebase.firestore().collection('employees').doc(uid).get()
+return firebase.firestore().collection('employees').doc(uid).get()
   .then((res)=> res.data().occupation) 
 }
 
@@ -33,7 +33,7 @@ const FormLogin = () => {
     const email = form.email;
     const password = form.password;
 
-   firebase
+  firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((res) => findUserRole(res.user.uid))

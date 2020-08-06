@@ -1,33 +1,41 @@
 import React from 'react';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 // import {RadioGroup, FormControlLabel, FormControl, Radio} from '@material-ui/core'
 
-// const BtRadio = ({ options, label, value, setValue, onChange, ...props}) => {
 
+const BtRadio = ({value, onChange}) => {
+  return (
+    <FormControl component="fieldset">
+      <FormLabel component="legend">Cargo</FormLabel>
+      <RadioGroup  row aria-label="gender" name="gender1" value={value} onChange={onChange}>
+        <FormControlLabel value="hall" control={<Radio />} label="Salão" />
+        <FormControlLabel value="kitchen" control={<Radio />} label="Cozinha" />
+      </RadioGroup>
+    </FormControl>
+  );
+}
+export default BtRadio;
+
+// const BtRadio =({id, value, onChange, htmlFor, text, ...props}) => {
 //   return (
-//   <>
-//   <FormControl component="fieldset">
-//   <RadioGroup row  aria-label="gender" name="gender1"  onChange={onChange} >
-//     { options.map((option)=> (     
-//         <FormControlLabel value={value} control={<Radio />} label={option} name={option} />))}
-//   </RadioGroup >
-//   </FormControl>   
+//     <>
+//         <input 
+//             id={id}
+//             type="radio"
+//             value={value}
+//             onChange={onChange}
+//             {...props}
+//         />
+//         <label htmlFor={htmlFor}>
+//             {text}
+//         </label>
 //     </>
 //   )
-//     }
-//  export default BtRadio;
+// }
 
-const BtRadio =({ options, value, label, setValue, text, onChange, name, ...props}) => {
-  return (
-    <>
-
-            <label>
-              <input type="radio" name="radio" value={value} {...props} />
-              {text}             
-            </label>
-          
-    </>
-  )
-}
-
-export default BtRadio;
+// export default BtRadio;
