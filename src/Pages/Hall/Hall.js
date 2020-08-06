@@ -11,8 +11,12 @@ function Hall() {
 	const [ menu, setMenu ] = useState([]);
 	const [ breakfast, setBreakfast ] = useState(false);
   const [ meal, setMeal ] = useState(false);
-  const [clientName, setClientName] = useState('');
-  const [tableNumber, setTableNumber] = useState('');
+  const [ form, setForm ] = useState({
+    clientName:'',
+    tableNumber:'',
+  });
+  // const [clientName, setClientName] = useState('');
+  // const [tableNumber, setTableNumber] = useState('');
 
 	useEffect(() => {
 		firebase.firestore().collection('menu').onSnapshot((itens) => {
@@ -31,15 +35,14 @@ function Hall() {
 		setMeal(true);
   }
   
-  const handleChange = (event) => {
-    setClientName(event.target.value)
-    setTableNumber(event.target.value);
-  };
-  // function handleChange({ target }) {
-  //   const { id, value } = target;
-  //   console.log(setClientName({ ...form, [id]: value }));
-  //   console.log(setTableNumber({ ...form, [id]: value }));
-  // }
+  // const handleChange = (event) => {
+  //   setClientName(event.target.value)
+  //   setTableNumber(event.target.value);
+  // };
+  function handleChange({ target }) {
+    const { id, value } = target;
+    console.log(setForm({ ...form, [id]: value }));
+  }
 
 	return (
 		<div className="hall">
@@ -47,9 +50,9 @@ function Hall() {
 				<div className="menu">
 				<div className="button-container">
           <div>
-            <Input autoFocus="true" id="clientName" label="Nome do cliente " name="clientName" type="text" value={clientName} onChange={handleChange} setValue={setClientName}/>
+            <Input autoFocus="true" id="clientName" label="Nome do cliente " name="clientName" type="text" value={form.clientName} onChange={handleChange} setValue={setForm.clientName}/>
 
-            <Input id="tableNumber" label="Número da mesa" name="tableNumber" type="text" autoComplete={tableNumber} value={tableNumber} onChange={handleChange} setValue={setTableNumber}/>
+            <Input id="tableNumber" label="Número da mesa" name="tableNumber" type="text"  value={form.tableNumber} onChange={handleChange} setValue={setForm.tableNumber}/>
           </div>
 
           <div>
