@@ -9,7 +9,7 @@ import './Hall.css';
 
 function Hall() {
   const [menu, setMenu] = useState([]);
-  const [brackfast, setBrackfast] = useState(false);
+  const [breakfast, setBreakfast] = useState(false);
   const [meal, setMeal] = useState(false);
 
   useEffect(() => {
@@ -21,7 +21,14 @@ function Hall() {
         })       
 }, []);
 
-
+function openBreakfast(){
+  setBreakfast(true)
+  setMeal(false)
+}
+function openMeal(){
+  setBreakfast(false)
+  setMeal(true)
+}
 
 
   return (
@@ -30,9 +37,13 @@ function Hall() {
       <Header />
       <h1>Salão</h1>
       
-          {menu.map((item)=><div className='card'>{item.item} {item.value} <br /></div>)}
       
-      <Button name='Café da manhã' />
+          {breakfast && menu.filter((item)=>item.breakfast=== true).map((item)=><div className='card'>{item.item} {item.value} <br /></div>)}
+          {meal && menu.filter((item)=>item.breakfast=== false).map((item)=><div className='card'>{item.item} {item.value} <br /></div>)}
+          
+
+      <Button name='Café da manhã' onClick={openBreakfast}/>
+      <Button name='Refeição' onClick={openMeal}/>
     </div>
   )
 }
