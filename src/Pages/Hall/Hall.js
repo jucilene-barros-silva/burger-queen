@@ -19,6 +19,7 @@ function Hall() {
 		});
 	}, []);
 
+
 	function openBreakfast() {
 		setBreakfast(true);
 		setMeal(false);
@@ -29,35 +30,39 @@ function Hall() {
 	}
 	return (
 		<div className="hall">
-			<Header />
-				<div className="menu">
-				<div className="button-container">
-            <div>
-              <Button className="button-cafe" name="Café da manhã" onClick={openBreakfast} />
-            </div>
-            <div>
-              <Button name="Refeição" onClick={openMeal} />
-            </div>
+			<div className="header-container">
+				<Header />
+			</div>			
+			<div className="menu">
+			<div className="button-container">
+					<div>
+						<Button className="button-cafe" name="Café da manhã" onClick={openBreakfast} />
+					</div>
+					<div>
+						<Button name="Refeição" onClick={openMeal} />
+					</div>
+			</div>
+			<div className="card-container">
+			{breakfast && menu.filter((item) => item.breakfast === true).map((item) => (
+					<div className="card">
+						<img src={item.img} alt='img' />
+						<h5>{item.item}</h5>
+						<p>{item.value}</p>    
+					</div>
+				))}
+			{meal && menu.filter((item) => item.breakfast === false).map((item) => (
+					<div className="card">
+						<img src={item.img} alt='img' />             
+						<h5>{item.item}</h5>
+						<p>{item.value}</p> 
+					</div>
+				))}
 				</div>
-        <div className="card-container">
-				{breakfast && menu.filter((item) => item.breakfast === true).map((item) => (
-						<div className="card">
-              <img src={item.img} alt='img' />
-							<h5>{item.item}</h5>
-							<p>{item.value}</p>    
-						</div>
-					))}
-				{meal && menu.filter((item) => item.breakfast === false).map((item) => (
-						<div className="card">
-              <img src={item.img} alt='img' />             
-							<h5>{item.item}</h5>
-              <p>{item.value}</p> 
-						</div>
-					))}
-          </div>
 			</div>
 		</div>
+	
 	);
+	
 }
 
 export default Hall;
