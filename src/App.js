@@ -12,7 +12,7 @@ import 'firebase/firestore';
 
 export default function App() {
   
-  const [user, setUser] = useState();
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
     firebase
@@ -25,7 +25,7 @@ export default function App() {
             .where('userUid', '==', user.uid)
             .onSnapshot(querySnapshot => {
               querySnapshot.forEach(doc => setUser(doc.data()))
-            })
+            })            
           : setUser();
       });
   }, []);

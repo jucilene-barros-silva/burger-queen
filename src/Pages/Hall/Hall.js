@@ -15,8 +15,8 @@ function Hall() {
     clientName:'',
     tableNumber:'',
   });
-  // const [clientName, setClientName] = useState('');
-  // const [tableNumber, setTableNumber] = useState('');
+  const [pedidos, setPedidos] = useState([]);
+  // const [ , setTableNumber] = useState('');
 
 	useEffect(() => {
 		firebase.firestore().collection('menu').onSnapshot((itens) => {
@@ -35,10 +35,9 @@ function Hall() {
 		setMeal(true);
   }
   
-  // const handleChange = (event) => {
-  //   setClientName(event.target.value)
-  //   setTableNumber(event.target.value);
-  // };
+	function getElement (item){
+		setPedidos([...pedidos, item])
+	}
   function handleChange({ target }) {
     const { id, value } = target;
     console.log(setForm({ ...form, [id]: value }));
@@ -64,7 +63,7 @@ function Hall() {
 				</div>
         <div className="card-container">
 				{breakfast && menu.filter((item) => item.breakfast === true).map((item) => (
-						<div className="card">
+						<div className="card" onClick= {() => getElement(item)}>
               <img src={item.img} alt='img' />
 							<h5>{item.item}</h5>
 							<p>{item.value}</p>    
@@ -79,7 +78,18 @@ function Hall() {
 					))}
           </div>
 			</div>
+			<div>
+			{pedidos && pedidos.map((item)=> (
+			<div>
+				<li>{item.item}</li>
+				<li>{item.value}</li>
+			</div>
+			))};
+			</div>
+			
+
 		</div>
+
 	);
 
 }
