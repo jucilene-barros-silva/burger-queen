@@ -5,11 +5,12 @@ import 'firebase/firestore';
 import firebase from '../../Firebase.js';
 import './Hall.css';
 import Input from '../../Components/Input.js';
+import SimpleModal from '../../Components/Modal.js';
+// import BtHamburger from '../../Components/BtHamburger/BtHamburger.css';
 
 
 function Hall() {
-
-	const [pedidos, setPedidos] = useState([]);
+	
 	const [ menu, setMenu ] = useState([]);
 	const [ breakfast, setBreakfast ] = useState(false);
 	const [ meal, setMeal ] = useState(false);
@@ -17,8 +18,10 @@ function Hall() {
   const [ form, setForm ] = useState({
     clientName:'',
     tableNumber:'',
-	});
-	
+  });
+  const [pedidos, setPedidos] = useState([]);
+	const [openModal, setOpenModal] = useState(false);
+
 	useEffect(() => {
 		firebase.firestore().collection('menu').onSnapshot((itens) => {
 			const arrayItens = [];
@@ -33,16 +36,29 @@ function Hall() {
 		setBreakfast(true);
 		setMeal(false);
 	}
-
+	
 	function openMeal() {
 		setBreakfast(false);
 		setMeal(true);
-  }
-  
-	function getElement (item){
-		setTotal(total + Number(item.value));
 		
+	}
+
+	const handleOpenModal = () => {
+		setOpenModal(true);
+	};
+
+	const handleCloseModal = () => {
+		setOpenModal(false);
+	};
+
+	function getElement (item){
+		setTotal(total + Number(item.value));		
 		setPedidos([...pedidos, item])
+		if(item.item !== 'Hambúrguer simples' && item.item !== 'Hambúrguer duplo'){
+			setPedidos([...pedidos, item])
+		} else {
+			setOpenModal(true)
+		}
 	}
 
   function handleChange({ target }) {
@@ -63,7 +79,8 @@ function Hall() {
 					</div>
 					<div className="button-container">					
             <Button className="button-cafe" name="Café da manhã" onClick={openBreakfast} />        
-            <Button name="Refeição" onClick={openMeal} />         
+            <Button name="Refeição" onClick={openMeal} />
+						{openModal && <SimpleModal closeModal={handleCloseModal} openModal={handleOpenModal} /> }       
 				</div>
         <div className="card-container">
 				{breakfast && menu.filter((item) => item.breakfast === true).map((item) => (
