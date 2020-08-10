@@ -9,42 +9,47 @@ import Input from '../../Components/Input.js';
 
 function Hall() {
 
+	const [pedidos, setPedidos] = useState([]);
 	const [ menu, setMenu ] = useState([]);
 	const [ breakfast, setBreakfast ] = useState(false);
-  const [ meal, setMeal ] = useState(false);
+	const [ meal, setMeal ] = useState(false);
+	const [ total, setTotal ] = useState(0);
   const [ form, setForm ] = useState({
     clientName:'',
     tableNumber:'',
-  });
-  const [pedidos, setPedidos] = useState([]);
-
-
+	});
+	
 	useEffect(() => {
 		firebase.firestore().collection('menu').onSnapshot((itens) => {
 			const arrayItens = [];
 			itens.forEach((item) => arrayItens.push(item.data()));
 			setMenu(arrayItens);
 		});
-	}, []);
 
+
+	}, []);
 
 	function openBreakfast() {
 		setBreakfast(true);
 		setMeal(false);
 	}
+
 	function openMeal() {
 		setBreakfast(false);
 		setMeal(true);
   }
   
 	function getElement (item){
+		setTotal(total + Number(item.value));
+		
 		setPedidos([...pedidos, item])
 	}
+
   function handleChange({ target }) {
     const { id, value } = target;
     console.log(setForm({ ...form, [id]: value }));
   }
-
+	
 	return (
 		<div className="hall">
 			<div className="header-container">
@@ -62,17 +67,17 @@ function Hall() {
 				</div>
         <div className="card-container">
 				{breakfast && menu.filter((item) => item.breakfast === true).map((item) => (
-					<div className="card" onClick= {() => getElement(item)}>
+					<div className="card" onClick= {() => getElement(item) }>
               <img src={item.img} alt='img' />
 							<h5>{item.item}</h5>
-							<p>{item.value}</p>    
+							<p>R$ {item.value},00</p>    
 						</div>
 					))}
 				{meal && menu.filter((item) => item.breakfast === false).map((item) => (
-					<div className="card">
+					<div className="card" onClick= {() => getElement(item) }>
               <img src={item.img} alt='img' />             
 							<h5>{item.item}</h5>
-              <p>{item.value}</p> 
+              <p>R$ {item.value},00</p> 
 						</div>
 					))}
           </div>
@@ -93,13 +98,11 @@ function Hall() {
 					</table>					
 				</div>
 			))}
+			<h2>Total: R$ {total},00 </h2>
 			</div>
-			</div>
-				
-				
+			</div>				
 			</div>	
 		
-	);
-}
-
+	)
+};
 export default Hall;
