@@ -10,7 +10,6 @@ import SimpleModal from '../../Components/Modal.js';
 
 
 function Hall() {
-	
 	const [ menu, setMenu ] = useState([]);
 	const [ breakfast, setBreakfast ] = useState(false);
   const [ meal, setMeal ] = useState(false);
