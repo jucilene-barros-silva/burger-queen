@@ -5,9 +5,12 @@ import 'firebase/firestore';
 import firebase from '../../Firebase.js';
 import './Hall.css';
 import Input from '../../Components/Input.js';
+import SimpleModal from '../../Components/Modal.js';
+// import BtHamburger from '../../Components/BtHamburger/BtHamburger.css';
+
 
 function Hall() {
-
+	
 	const [ menu, setMenu ] = useState([]);
 	const [ breakfast, setBreakfast ] = useState(false);
   const [ meal, setMeal ] = useState(false);
@@ -16,7 +19,7 @@ function Hall() {
     tableNumber:'',
   });
   const [pedidos, setPedidos] = useState([]);
-  // const [ , setTableNumber] = useState('');
+	const [openModal, setOpenModal] = useState(false);
 
 	useEffect(() => {
 		firebase.firestore().collection('menu').onSnapshot((itens) => {
@@ -30,14 +33,29 @@ function Hall() {
 		setBreakfast(true);
 		setMeal(false);
 	}
+	
 	function openMeal() {
 		setBreakfast(false);
 		setMeal(true);
-  }
-  
-	function getElement (item){
-		setPedidos([...pedidos, item])
+		
 	}
+
+	const handleOpenModal = () => {
+		setOpenModal(true);
+	};
+
+	const handleCloseModal = () => {
+		setOpenModal(false);
+	};
+
+	function getElement (item){
+		if(item.item !== 'Hambúrguer simples' && item.item !== 'Hambúrguer duplo'){
+			setPedidos([...pedidos, item])
+		} else {
+			setOpenModal(true)
+		}
+	}
+
   function handleChange({ target }) {
     const { id, value } = target;
     console.log(setForm({ ...form, [id]: value }));
@@ -59,6 +77,8 @@ function Hall() {
           </div>
           <div>
             <Button name="Refeição" onClick={openMeal} />
+            <Button name="Adicional" onClick={() => alert('additional')} />
+						{openModal && <SimpleModal closeModal={handleCloseModal} openModal={handleOpenModal} /> }
           </div>
 				</div>
         <div className="card-container">
@@ -70,7 +90,7 @@ function Hall() {
 						</div>
 					))}
 				{meal && menu.filter((item) => item.breakfast === false).map((item) => (
-						<div className="card">
+						<div className="card" onClick= {() => getElement(item)} >
               <img src={item.img} alt='img' />             
 							<h5>{item.item}</h5>
               <p>{item.value}</p> 
@@ -84,14 +104,10 @@ function Hall() {
 				<li>{item.item}</li>
 				<li>{item.value}</li>
 			</div>
-			))};
+			))}
 			</div>
-			
-
 		</div>
-
 	);
-
 }
 
 export default Hall;
