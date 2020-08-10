@@ -1,9 +1,7 @@
-.hall {
-  background: silver
-}
-.menu {
+
+.menu-container {
   width: 50%;
-  background: blueviolet;
+
 }
 
 .button-container {
@@ -42,4 +40,31 @@
 }
 
 
+li {
+  list-style: none;
+}
 
+.page {
+  display: flex;
+  flex-direction: row;
+}
+
+.inf-mesa{
+  display:flex;
+  flex-direction: row;
+  
+}
+
+
+.table {
+  font-family: Poppins;
+  font-size: 1.2rem;
+  width: 90%;
+ 
+}
+
+
+th, td {
+  padding: 15px;
+  text-align: left;
+}
