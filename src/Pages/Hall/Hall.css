@@ -68,3 +68,33 @@ th, td {
   padding: 15px;
   text-align: left;
 }
+.card-container {
+  display: flex;
+  flex-direction: column;
+  width:50%;
+  border: crimson 2px solid;
+  font-family: Poppins;
+  margin:5px;
+}
+
+.card-titulo {
+  display: flex;
+  margin: 5px;
+
+ 
+}
+
+.card-pedido {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  background-color: chartreuse;
+  
+}
+
+.card-pedido img {
+  width: 60px;
+  height: 50px;
+  border-radius: 5px;
+  margin-right: 10px;
+}

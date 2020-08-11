@@ -109,7 +109,6 @@ function Hall() {
         })
         .then(() => {
           setPedidos([]);
-          // setTotal(0)
           setForm({
 						clientName: '',
 						tableNumber: '',
