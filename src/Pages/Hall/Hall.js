@@ -6,7 +6,6 @@ import firebase from '../../Firebase.js';
 import './Hall.css';
 import Input from '../../Components/Input.js';
 import SimpleModal from '../../Components/Modal.js';
-// import BtHamburger from '../../Components/BtHamburger/BtHamburger.css';
 
 
 function Hall() {
@@ -15,6 +14,7 @@ function Hall() {
 	const [ breakfast, setBreakfast ] = useState(false);
 	const [ meal, setMeal ] = useState(false);
 	const [ total, setTotal ] = useState(0);
+	const [ contador, setContador ] = useState(0);
   const [ form, setForm ] = useState({
     clientName:'',
     tableNumber:'',
@@ -28,8 +28,6 @@ function Hall() {
 			itens.forEach((item) => arrayItens.push(item.data()));
 			setMenu(arrayItens);
 		});
-
-
 	}, []);
 
 	function openBreakfast() {
@@ -39,8 +37,7 @@ function Hall() {
 	
 	function openMeal() {
 		setBreakfast(false);
-		setMeal(true);
-		
+		setMeal(true);		
 	}
 
 	const handleOpenModal = () => {
@@ -51,16 +48,31 @@ function Hall() {
 		setOpenModal(false);
 	};
 
+	// function saveOrder(order) {
+	// 	firebase
+  //       .firestore()
+  //       .collection('orders')
+  //       .doc(orderId)
+  //       .update({
+  //         client: username,
+  //         table: table,
+  //         status: "Pendente",
+  //         id: orderId,
+  //         initialTime: new Date().toLocaleString(),
+  //       });
+	// }
+
 	function getElement (item){
-		setTotal(total + Number(item.value));		
-		setPedidos([...pedidos, item])
+		setTotal(total + Number(item.value));
+		setContador(contador + 1);
 		if(item.item !== 'Hambúrguer simples' && item.item !== 'Hambúrguer duplo'){
 			setPedidos([...pedidos, item])
 		} else {
 			setOpenModal(true)
-		}
+		}		
 	}
 
+	
   function handleChange({ target }) {
     const { id, value } = target;
     console.log(setForm({ ...form, [id]: value }));
@@ -107,7 +119,7 @@ function Hall() {
 				<div>
 					<table className="table">						
 						<tr>
-							<td><Button name="-" /> 1 <Button name="+" /></td>
+							<td><Button name="-" onClick={()=> setContador(contador - 1) } /> {contador} <Button name="+" onClick={()=> setContador((contador + 1)* item.value ) } /></td>
 							<td>{item.item}</td>
 							<td>R$ {item.value},00</td>
 							<td><Button name="X" /></td>
@@ -115,7 +127,7 @@ function Hall() {
 					</table>					
 				</div>
 			))}
-			<h2>Total: R$ {total},00 </h2>
+				<h2>Qtd.: {contador} Total: R$ {total},00 </h2>
 			</div>
 			</div>				
 			</div>	
