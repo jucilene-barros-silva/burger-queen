@@ -68,7 +68,7 @@ th, td {
   padding: 15px;
   text-align: left;
 }
-.card-container {
+.card-lista {
   display: flex;
   flex-direction: column;
   width:50%;
@@ -80,7 +80,6 @@ th, td {
 .card-titulo {
   display: flex;
   margin: 5px;
-
  
 }
 

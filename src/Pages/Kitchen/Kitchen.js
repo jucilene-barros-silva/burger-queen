@@ -22,7 +22,7 @@ const Kitchen = () => {
   return(
     <>
    {order && order.map((el)=>(
-    <div className="card-container">
+    <div className="card-lista">
        <div className="card-titulo">
         <p>Cliente: {el.name}</p>
         <p>Mesa: {el.table}</p>
