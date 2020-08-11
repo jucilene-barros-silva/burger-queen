@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../Components/Header.js';
 import Button from '../../Components/Button.js';
-import 'firebase/firestore';
 import firebase from '../../Firebase.js';
+import 'firebase/auth';
+import 'firebase/firestore';
 import './Hall.css';
 import Input from '../../Components/Input.js';
 import SimpleModal from '../../Components/Modal.js';
+import SimpleAlerts from '../../Components/Alert.js'
+
 
 function Hall() {
   const [menu, setMenu] = useState([]);
   const [breakfast, setBreakfast] = useState(false);
   const [meal, setMeal] = useState(false);
-  // const [total, setTotal] = useState(0);
+  const [error, setError] = useState(false);
   const [form, setForm] = useState({
     clientName: '',
     tableNumber: '',
   });
   const [pedidos, setPedidos] = useState([]);
-  // const [name, setName] = useState('');
-  // const [table, setTable] = useState('');
-  const [openModal, setOpenModal] = useState(false);
+	const [openModal, setOpenModal] = useState(false);
+	
 
   useEffect(() => {
     firebase
@@ -68,8 +70,27 @@ function Hall() {
     const { id, value } = target;
     console.log(setForm({ ...form, [id]: value }));
   }
+//Função do Gabriel, quantidade está ficando negativa quando clica na foto
 
-  function newRequest(item, operacao) {
+  // function newRequest(item, operacao) {
+	// 	const indexOrder = pedidos.findIndex((order) => order.item === item.item);
+	// 	if (
+  //     item.item === 'Hambúrguer simples' ||
+  //     item.item === 'Hambúrguer duplo'){
+	// 		setOpenModal(true);
+	// 	}
+  //   if (indexOrder === -1) {
+  //     setPedidos([...pedidos, { ...item, count: 1 }]);
+	// 	}
+	// 	else {
+	// 		let quant = pedidos[indexOrder].count;
+	// 		quant = operacao === 1? quant+1 : quant-1;
+	// 		pedidos[indexOrder].count = quant;
+  //     setPedidos([...pedidos]);
+	// 	}
+	// }
+	
+	function newRequest(item) {
 		const indexOrder = pedidos.findIndex((order) => order.item === item.item);
 		if (
       item.item === 'Hambúrguer simples' ||
@@ -80,13 +101,12 @@ function Hall() {
       setPedidos([...pedidos, { ...item, count: 1 }]);
 		}
 		else {
-			let quant = pedidos[indexOrder].count;
-			quant = operacao === 1 ? quant + 1 : quant - 1;
-			pedidos[indexOrder].count = quant;
+			pedidos[indexOrder].count++;
       setPedidos([...pedidos]);
+      console.log(pedidos);
 		}
-  }
-	
+	}
+
   const deleteItem = (product) => {
     const remove = pedidos.filter((el) => el.item !== product.item);
     setPedidos(remove);
@@ -101,11 +121,14 @@ function Hall() {
         .collection('orders')
         .doc()
         .set({
+					id:firebase.auth().currentUser.uid,
+					waiterName:firebase.auth().currentUser.displayName,
+					clientName:firebase.auth().currentUser.displayName,
           name: form.clientName,
           table: parseInt(form.tableNumber),
           orders: pedidos,
 					total: total,
-					time: new Date().toLocaleString('pt-br'),
+					data: new Date().toLocaleString('pt-BR')
         })
         .then(() => {
           setPedidos([]);
@@ -113,15 +136,15 @@ function Hall() {
 						clientName: '',
 						tableNumber: '',
 					});
-          
-          alert('Pedido enviado com sucesso');
+
+          setError('Pedido enviado com sucesso');
         });
     } else if (!pedidos.length) {
-      alert('Um item deve ser selecionado');
+      setError('Um item deve ser selecionado');
     } else if (!form.tableNumber) {
-      alert('Digite o número da mesa');
+      setError('Digite o número da mesa');
     } else if (!form.clientName) {
-      alert('Digite o nome do cliente');
+      setError('Digite o nome do cliente');
     }
   };
 
@@ -195,6 +218,7 @@ function Hall() {
           </div>
         </div>
         <div className="pedido-container">
+				{error && <SimpleAlerts severity="error">{error}</SimpleAlerts>}
           <th>Qtd.</th>
           <th>Pedidos</th>
           <th>Valor</th>
@@ -206,7 +230,7 @@ function Hall() {
                     <td>
                       <Button name="-" onClick={() => newRequest(item, 2)}/>
                       <td>{item.count}</td>
-                      <Button name="+" onClick={() => newRequest(item, 1)}/>
+                      <Button name="+" onClick={() => newRequest(item)}/>
                     </td>
                     <td>{item.item}</td>
                     <td>R$ {item.value},00</td>
