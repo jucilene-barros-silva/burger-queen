@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -8,14 +8,23 @@ import './FormModal.css';
 import Button from '../Button.js';
 
 const BtHamburger = ({ value, onChange, ...props }) => {
+ 
+  const [ typeBurger, setTypeBurger ] = useState('');
+  const [ additional, setAditional ] = useState('');
+
+  const handleChangeRadio = (event) => {
+    console.log(setTypeBurger(event.target.value));
+    console.log(setAditional(event.target.value));
+  };
+
   return (
     <div className="container">
       <FormControl component="fieldset">
-        <FormLabel component="legend">Hambúrguerer</FormLabel>
+        <FormLabel component="legend">Hambúrguer</FormLabel>
         <RadioGroup
           aria-label="gender"
           name="gender1"
-          value={value}
+          value={typeBurger}
           onChange={onChange}
         >
           <FormControlLabel
@@ -39,7 +48,7 @@ const BtHamburger = ({ value, onChange, ...props }) => {
           aria-label="gender"
           name="gender1"
           value={value}
-          onChange={onChange}
+          onChange={additional}
         >
           <FormControlLabel
             value="ovo"
@@ -51,10 +60,11 @@ const BtHamburger = ({ value, onChange, ...props }) => {
         </RadioGroup>
       </FormControl>
     <div>
-      <Button Button name="Adicionar" onClick={() => alert('additional')}/>
+      <Button Button name="Adicionar" onClick= {handleChangeRadio} />
       <Button Button name="Cancelar" onClick={() => alert('additional')}/>
       </div>  
     </div>
   );
 };
 export default BtHamburger;
+ 

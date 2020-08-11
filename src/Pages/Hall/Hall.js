@@ -8,7 +8,7 @@ import './Hall.css';
 import Input from '../../Components/Input.js';
 import SimpleModal from '../../Components/Modal.js';
 import SimpleAlerts from '../../Components/Alert.js'
-// import BtHamburger from '../../Components/BtHamburger/BtHamburger.css';
+
 
 function Hall() {
   const [menu, setMenu] = useState([]);
@@ -65,6 +65,7 @@ function Hall() {
   //   }
   // }
 
+	
   function handleChange({ target }) {
     const { id, value } = target;
     console.log(setForm({ ...form, [id]: value }));
@@ -126,7 +127,7 @@ function Hall() {
           table: parseInt(form.tableNumber),
           orders: pedidos,
 					total: total,
-					data: new Date().toDate().toLocaleString('pt-BR')
+					data: new Date().toLocaleString('pt-BR')
         })
         .then(() => {
           setPedidos([]);
