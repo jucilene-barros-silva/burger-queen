@@ -122,8 +122,7 @@ function Hall() {
         .set({
 					id:firebase.auth().currentUser.uid,
 					waiterName:firebase.auth().currentUser.displayName,
-					clientName:firebase.auth().currentUser.displayName,
-          name: form.clientName,
+					clientName:form.clientName,
           table: parseInt(form.tableNumber),
           orders: pedidos,
 					total: total,
@@ -217,7 +216,6 @@ function Hall() {
           </div>
         </div>
         <div className="pedido-container">
-				{error && <SimpleAlerts severity="error">{error}</SimpleAlerts>}
           <th>Qtd.</th>
           <th>Pedidos</th>
           <th>Valor</th>
@@ -227,7 +225,7 @@ function Hall() {
                 <table className="table">
                   <tr>
                     <td>
-                      <Button name="-" onClick={() => newRequest(item, 2)}/>
+                      <Button name="-" onClick={() => newRequest(item)}/>
                       <td>{item.count}</td>
                       <Button name="+" onClick={() => newRequest(item)}/>
                     </td>
@@ -242,6 +240,7 @@ function Hall() {
             ))}
           <h2>Total: R$ {total},00 </h2>
 					<Button onClick={sendOrder} name="Enviar Pedido"/>
+					{error && <SimpleAlerts severity="error">{error}</SimpleAlerts>}
         </div>
       </div>
     </div>
