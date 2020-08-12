@@ -177,6 +177,7 @@ function Hall() {
         <div className="menu-container">
           <div className="inf-mesa">
             <div>
+              <span>Nome Cliente: </span>
             <Input
               autoFocus="true"
               id="clientName"
@@ -189,6 +190,7 @@ function Hall() {
             />
             </div>
            <div>
+            <span>Mesa: </span>
            <Input
               id="tableNumber"
               label="Número da mesa"
