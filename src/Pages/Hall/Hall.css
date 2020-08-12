@@ -59,8 +59,7 @@ li {
 .table {
   font-family: Poppins;
   font-size: 1.2rem;
-  width: 90%;
- 
+  width: 90%; 
 }
 
 
@@ -68,27 +67,33 @@ th, td {
   padding: 15px;
   text-align: left;
 }
+
+.page {
+  width:50%;
+}
 .card-lista {
   display: flex;
-  flex-direction: column;
-  width:50%;
-  border: crimson 2px solid;
+  flex-wrap: wrap;
+  flex-direction: column; 
+  border: blue 2px solid;
   font-family: Poppins;
-  margin:5px;
+  margin: 5px;
+  
 }
 
-.card-titulo {
-  display: flex;
+.card-titulo { 
+  justify-content: space-between;
+  background-color: lightblue;
+}
+
+.card-titulo p {
   margin: 5px;
- 
 }
 
 .card-pedido {
   display: flex;
   align-items: center;
-  margin: 5px;
-  background-color: chartreuse;
-  
+  margin: 5px;   
 }
 
 .card-pedido img {
@@ -96,4 +101,8 @@ th, td {
   height: 50px;
   border-radius: 5px;
   margin-right: 10px;
+}
+
+.bt-container {
+ margin: 10px;
 }

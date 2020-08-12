@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import 'firebase/firestore';
 import firebase from '../../Firebase.js';
 import '../Hall/Hall.css';
+import Button from '../../Components/Button.js';
 
 const Kitchen = () => {
   const [ order, setOrder ] = useState();
@@ -20,23 +21,27 @@ const Kitchen = () => {
   }, []);
 
   return(
-    <>
+    <div className="page">
    {order && order.map((el)=>(
     <div className="card-lista">
        <div className="card-titulo">
-        <p>Cliente: {el.name}</p>
-        <p>Mesa: {el.table}</p>
+       <p>Mesa: {el.table}</p>
+        <p>Cliente: {el.name}</p>        
         <p>Data: {el.time}</p>
       </div>
-   <h4>{el.orders.map((item) => (
+   <div>{el.orders.map((item) => (
       <div className="card-pedido">
         <img src={item.img} alt="img" />
         <p><span>{item.count} x </span> {item.item} </p>
-      </div>
-   ))}</h4>
+     
+      </div>      
+   ))}</div>
+      <div className="bt-container">
+          <Button name='Preparar' />
+      </div>  
     </div>))}
   
-   </>
+   </div>
   )
 }
 export default Kitchen;
