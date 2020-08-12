@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   --primary-color: #272d74;
+  font-family: Poppins;
 }
 
 .header {

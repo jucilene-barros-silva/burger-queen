@@ -4,9 +4,14 @@
 
 }
 
+
 .button-container {
   display: flex;
   justify-content: space-evenly;
+}
+
+.button-container button {
+ width: 150px;
 }
 
 .card-container{
@@ -17,7 +22,6 @@
 }
 
 .card { 
-  font-family: Poppins;
   font-family: Poppins;
   background: white;
   border-radius: 5px;
@@ -39,7 +43,6 @@
   border-radius: 5px 5px 0 0;  
 }
 
-
 li {
   list-style: none;
 }
@@ -52,25 +55,14 @@ li {
 .inf-mesa{
   display:flex;
   flex-direction: row;
-  
-}
-
-
-.table {
-  font-family: Poppins;
-  font-size: 1.2rem;
-  width: 90%; 
-}
-
-
-th, td {
-  padding: 15px;
-  text-align: left;
+  margin: 20px;
+  justify-content: space-around;
 }
 
 .page {
-  width:50%;
+  width:100%;
 }
+
 .card-lista {
   display: flex;
   flex-wrap: wrap;
@@ -105,4 +97,78 @@ th, td {
 
 .bt-container {
  margin: 10px;
+}
+
+
+
+
+
+.pedido-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;  
+}
+
+.pedido-titulo {
+  display: flex; 
+  margin: 30px;
+  justify-content: space-between;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.pedido-itens {
+  margin: 30px;
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr;
+  justify-content: center;  
+}
+
+.pedido-itens div {
+  display: flex;
+  align-items: center;
+  text-align: start;
+}
+
+.pedido-container img {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+}
+
+.pedido-container img:hover {
+  cursor: pointer; 
+}
+
+.pedido-container span {
+  margin: 5px;
+  font-weight: bold;
+}
+
+.bt-pedidos {
+  display: flex;
+ justify-content: center;
+  width: 50%;
+  align-self: flex-end;
+  margin: 30px;
+}
+
+.total-pedidos {
+  background-color: lightblue;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 30px;
+}
+
+.total-pedidos h2 {
+  align-items: initial;
+  margin: 5px;
+ 
+}
+
+.total-pedidos button {
+  width: 150px;  
+  margin: 10px;
 }

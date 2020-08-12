@@ -6,6 +6,8 @@ import Button from '../../Components/Button.js';
 
 const Kitchen = () => {
   const [ order, setOrder ] = useState();
+  const [pendente, setPendente ] = useState([]);
+  const [pronto, setPronto] = useState([]);
 
   useEffect(() => {
     firebase
@@ -16,7 +18,8 @@ const Kitchen = () => {
         itens.forEach((item) => arrayItens.push(item.data()));
         setOrder(arrayItens);
         console.log(arrayItens)
-        
+        setPendente(arrayItens.filter(doc => doc.status === 'Pendente'));
+        setPronto(arrayItens.filter(doc=> doc.status === 'Pronto'));
       });
   }, []);
 
@@ -43,5 +46,7 @@ const Kitchen = () => {
   
    </div>
   )
+
+  
 }
 export default Kitchen;

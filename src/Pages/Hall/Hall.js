@@ -8,6 +8,9 @@ import './Hall.css';
 import Input from '../../Components/Input.js';
 import SimpleModal from '../../Components/Modal.js';
 import SimpleAlerts from '../../Components/Alert.js'
+import Diminuir from '../../img/menos.svg';
+import Aumentar from '../../img/mais.svg';
+import Excluir from '../../img/lixo.svg';
 
 
 function Hall() {
@@ -29,7 +32,7 @@ function Hall() {
       .collection('menu')
       .onSnapshot((itens) => {
         const arrayItens = [];
-        itens.forEach((item) => arrayItens.push(item.data()));
+        itens.docs.forEach((item) => arrayItens.push(item.data()));
         setMenu(arrayItens);
       });
   }, []);
@@ -100,13 +103,25 @@ function Hall() {
     if (indexOrder === -1) {
       setPedidos([...pedidos, { ...item, count: 1 }]);
 		}
+		
 		else {
 			pedidos[indexOrder].count++;
       setPedidos([...pedidos]);
-      console.log(pedidos);
+			console.log(indexOrder);
+			console.log(pedidos);
 		}
 	}
 
+	const [subtracao, setSubtracao] = useState()
+	const subItem = (item) =>{
+		const indexOrder = pedidos.findIndex((order) => order.item === item.item);
+		if (item.count===1){
+			setSubtracao(null);
+		}else{
+			setSubtracao(pedidos[indexOrder].count--);
+		}
+  }
+  
   const deleteItem = (product) => {
     const remove = pedidos.filter((el) => el.item !== product.item);
     setPedidos(remove);
@@ -123,12 +138,12 @@ function Hall() {
         .set({
 					id:firebase.auth().currentUser.uid,
 					waiterName:firebase.auth().currentUser.displayName,
-					clientName:firebase.auth().currentUser.displayName,
-          name: form.clientName,
+					clientName:form.clientName,
           table: parseInt(form.tableNumber),
           orders: pedidos,
-					total: total,
-					data: new Date().toLocaleString('pt-BR')
+          total: total,
+          status: "Pendente",
+					hallTime: new Date().toLocaleString('pt-BR')
         })
         .then(() => {
           setPedidos([]);
@@ -150,7 +165,8 @@ function Hall() {
 
 	const total = pedidos.reduce((acumulador, itemAtual)=>{
 		return acumulador + (Number(itemAtual.value) * itemAtual.count)
-	},0)
+  },0)
+
 
   return (
     <div className="hall">
@@ -160,6 +176,7 @@ function Hall() {
       <div className="page">
         <div className="menu-container">
           <div className="inf-mesa">
+            <div>
             <Input
               autoFocus="true"
               id="clientName"
@@ -170,7 +187,9 @@ function Hall() {
               onChange={handleChange}
               setValue={setForm.clientName}
             />
-            <Input
+            </div>
+           <div>
+           <Input
               id="tableNumber"
               label="Número da mesa"
               name="tableNumber"
@@ -179,7 +198,8 @@ function Hall() {
               onChange={handleChange}
               setValue={setForm.tableNumber}
             />
-          </div>
+           </div>
+           </div>
           <div className="button-container">
             <Button
               className="button-cafe"
@@ -218,31 +238,39 @@ function Hall() {
           </div>
         </div>
         <div className="pedido-container">
-				{error && <SimpleAlerts severity="error">{error}</SimpleAlerts>}
-          <th>Qtd.</th>
-          <th>Pedidos</th>
-          <th>Valor</th>
-          {pedidos &&
-            pedidos.map((item) => (
+          <div className="pedido-titulo">
+            <div>Qtd.</div>
+            <div>Pedidos</div>
+            <div>Valor</div>
+            <div>Excluir</div>              
+          </div>     
+          {pedidos && pedidos.map((item) => (              
+            <div className="pedido-itens">
               <div>
-                <table className="table">
-                  <tr>
-                    <td>
-                      <Button name="-" onClick={() => newRequest(item, 2)}/>
-                      <td>{item.count}</td>
-                      <Button name="+" onClick={() => newRequest(item)}/>
-                    </td>
-                    <td>{item.item}</td>
-                    <td>R$ {item.value},00</td>
-                    <td>
-                      <Button onClick={() => deleteItem(item)} name="X" />
-                    </td>
-                  </tr>
-                </table>
+              <img src={Diminuir} alt="Botão Diminuir" onClick={() => subItem(item)} />
+              <span>{item.count}</span>
+              <img src={Aumentar} alt="Botão Aumentar" onClick={() => newRequest(item)} />
               </div>
+              <div>
+                <span>{item.item}</span>  
+              </div>
+              <div>
+              <span>R$ {item.value},00</span>
+              </div>
+              <div>
+              <img src={Excluir} alt="Botão Excluir" onClick={() => deleteItem(item)} />  
+              </div>
+                              
+            </div>            
             ))}
-          <h2>Total: R$ {total},00 </h2>
-					<Button onClick={sendOrder} name="Enviar Pedido"/>
+          <div className='total-pedidos'>
+            <h2>Total: R$ {total},00 </h2>
+            
+          <Button onClick={sendOrder} name="Enviar Pedido"/>
+					{error && <SimpleAlerts severity="error">{error}</SimpleAlerts>}
+          </div>
+          <div className='bt-pedidos'>
+          </div>         					
         </div>
       </div>
     </div>
