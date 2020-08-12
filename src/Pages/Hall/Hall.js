@@ -29,7 +29,7 @@ function Hall() {
       .collection('menu')
       .onSnapshot((itens) => {
         const arrayItens = [];
-        itens.forEach((item) => arrayItens.push(item.data()));
+        itens.docs.forEach((item) => arrayItens.push(item.data()));
         setMenu(arrayItens);
       });
   }, []);
@@ -100,13 +100,25 @@ function Hall() {
     if (indexOrder === -1) {
       setPedidos([...pedidos, { ...item, count: 1 }]);
 		}
+		
 		else {
 			pedidos[indexOrder].count++;
       setPedidos([...pedidos]);
-      console.log(pedidos);
+			console.log(indexOrder);
+			console.log(pedidos);
 		}
 	}
 
+	const [subtracao, setSubtracao] = useState()
+	const subItem = (item) =>{
+		const indexOrder = pedidos.findIndex((order) => order.item === item.item);
+		if (item.count===1){
+			setSubtracao(null);
+		}else{
+			setSubtracao(pedidos[indexOrder].count--);
+		}
+  }
+  
   const deleteItem = (product) => {
     const remove = pedidos.filter((el) => el.item !== product.item);
     setPedidos(remove);
@@ -126,8 +138,9 @@ function Hall() {
 					clientName:form.clientName,
           table: parseInt(form.tableNumber),
           orders: pedidos,
-					total: total,
-					data: new Date().toLocaleString('pt-BR')
+          total: total,
+          status: "Pendente",
+					hallTime: new Date().toLocaleString('pt-BR')
         })
         .then(() => {
           setPedidos([]);
@@ -149,7 +162,8 @@ function Hall() {
 
 	const total = pedidos.reduce((acumulador, itemAtual)=>{
 		return acumulador + (Number(itemAtual.value) * itemAtual.count)
-	},0)
+  },0)
+
 
   return (
     <div className="hall">
@@ -226,7 +240,7 @@ function Hall() {
                 <table className="table">
                   <tr>
                     <td>
-                      <Button name="-" onClick={() => newRequest(item)}/>
+										  <Button name="-" onClick={() => subItem(item)}/>
                       <td>{item.count}</td>
                       <Button name="+" onClick={() => newRequest(item)}/>
                     </td>

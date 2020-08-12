@@ -5,6 +5,8 @@ import '../Hall/Hall.css';
 
 const Kitchen = () => {
   const [ order, setOrder ] = useState();
+  const [pendente, setPendente ] = useState([]);
+  const [pronto, setPronto] = useState([]);
 
   useEffect(() => {
     firebase
@@ -15,28 +17,31 @@ const Kitchen = () => {
         itens.forEach((item) => arrayItens.push(item.data()));
         setOrder(arrayItens);
         console.log(arrayItens)
-        
+        setPendente(arrayItens.filter(doc => doc.status === 'Pendente'));
+        setPronto(arrayItens.filter(doc=> doc.status === 'Pronto'));
       });
   }, []);
 
   return(
     <>
-   {order && order.map((el)=>(
+  {order && order.map((el)=>(
     <div className="card-lista">
-       <div className="card-titulo">
+      <div className="card-titulo">
         <p>Cliente: {el.name}</p>
         <p>Mesa: {el.table}</p>
         <p>Data: {el.time}</p>
       </div>
-   <h4>{el.orders.map((item) => (
+  <h4>{el.orders.map((item) => (
       <div className="card-pedido">
         <img src={item.img} alt="img" />
         <p><span>{item.count} x </span> {item.item} </p>
       </div>
-   ))}</h4>
+  ))}</h4>
     </div>))}
   
-   </>
+  </>
   )
+
+  
 }
 export default Kitchen;
