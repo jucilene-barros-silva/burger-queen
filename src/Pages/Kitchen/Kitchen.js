@@ -5,9 +5,7 @@ import '../Hall/Hall.css';
 
 const Kitchen = () => {
   const [ order, setOrder ] = useState();
-  const [pendente, setPendente ] = useState([]);
-  const [pronto, setPronto] = useState([]);
-
+ 
   useEffect(() => {
     firebase
       .firestore()
@@ -17,8 +15,6 @@ const Kitchen = () => {
         itens.forEach((item) => arrayItens.push(item.data()));
         setOrder(arrayItens);
         console.log(arrayItens)
-        setPendente(arrayItens.filter(doc => doc.status === 'Pendente'));
-        setPronto(arrayItens.filter(doc=> doc.status === 'Pronto'));
       });
   }, []);
 

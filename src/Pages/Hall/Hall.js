@@ -109,11 +109,11 @@ function Hall() {
 		}
 	}
 
-	const [subtracao, setSubtracao] = useState()
+	const [subtracao, setSubtracao] = useState(true)
 	const subItem = (item) =>{
 		const indexOrder = pedidos.findIndex((order) => order.item === item.item);
 		if (item.count===1){
-			setSubtracao(null);
+      return document.getElementsByName('-').disabled = true;
 		}else{
 			setSubtracao(pedidos[indexOrder].count--);
 		}
@@ -240,7 +240,7 @@ function Hall() {
                 <table className="table">
                   <tr>
                     <td>
-										  <Button name="-" onClick={() => subItem(item)}/>
+										  {subtracao && <Button name="-" onClick={() => subItem(item)}/>}
                       <td>{item.count}</td>
                       <Button name="+" onClick={() => newRequest(item)}/>
                     </td>
