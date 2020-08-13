@@ -5,7 +5,7 @@ import '../Hall/Hall.css';
 
 const Kitchen = () => {
   const [ order, setOrder ] = useState();
- 
+
   useEffect(() => {
     firebase
       .firestore()
@@ -17,10 +17,11 @@ const Kitchen = () => {
         console.log(arrayItens)
       });
   }, []);
+  
 
   return(
     <>
-  {order && order.map((el)=>(
+  {order && order.filter((item) => item.status === 'Pendentes').map((el)=>(
     <div className="card-lista">
       <div className="card-titulo">
         <p>Cliente: {el.name}</p>

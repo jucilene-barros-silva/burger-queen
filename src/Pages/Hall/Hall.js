@@ -112,8 +112,9 @@ function Hall() {
 	const [subtracao, setSubtracao] = useState(true)
 	const subItem = (item) =>{
 		const indexOrder = pedidos.findIndex((order) => order.item === item.item);
-		if (item.count===1){
+		if (item.count===1){  
       return document.getElementsByName('-').disabled = true;
+    
 		}else{
 			setSubtracao(pedidos[indexOrder].count--);
 		}
