@@ -130,9 +130,7 @@ const OrderStatus = () => {
                   <p>Data: {el.halltime}</p>
                 </div>
                 <div>
-                  {el.orders
-                    .filter((item) => item.status === 'Pendente')
-                    .map((item) => (
+                  {el.orders.map((item) => (
                       <div className="card-pedido">
                         <img src={item.img} alt="img" />
                         <p>
@@ -148,9 +146,7 @@ const OrderStatus = () => {
               </div>
             ))}
         {preparando &&
-          order
-            .filter((item) => item.status === 'Preparando')
-            .map((el) => (
+          order.map((el) => (
               <div className="card-lista">
                 <div className="card-titulo">
                   <p>Garçom:{el.WaiterName}</p>

@@ -152,9 +152,9 @@ function Hall() {
 						clientName: '',
 						tableNumber: '',
 					});
-
           setError('Pedido enviado com sucesso');
         });
+        
     } else if (!pedidos.length) {
       setError('Um item deve ser selecionado');
     } else if (!form.tableNumber) {

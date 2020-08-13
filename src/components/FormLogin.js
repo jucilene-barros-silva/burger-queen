@@ -52,7 +52,11 @@ const FormLogin = () => {
         }
         if (error.code === 'auth/invalid-email') {
           return setError('E-mail invalido!');
-        } else {
+        } 
+        if (error.code === "auth/email-already-in-use"){
+          return setError('E-mail já cadastrado!')
+        }
+        else {
           return setError(`Codigo de error: ${error.code}`);
         }
       });

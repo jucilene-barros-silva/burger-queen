@@ -28,7 +28,7 @@ export default function App() {
               querySnapshot.forEach(doc => setLoggedIn(doc.data()))
             })            
           : setLoggedIn();
-          console.log(setLoggedIn())
+       
       });
   }, []);
 
