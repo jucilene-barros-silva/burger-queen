@@ -45,7 +45,7 @@ const Kitchen = () => {
       </div>      
    ))}</div>
       <div className="bt-container">
-          <Button name='Preparar' />
+          <Button name='Preparar' onClick={() => alert('olá')} />
       </div>  
     </div>))}
       </div>
