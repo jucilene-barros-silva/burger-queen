@@ -74,7 +74,7 @@ const FormLogin = () => {
       <Input
         id="password"
         name="password"
-        label="password"
+        label="Senha"
         type="password"
         value={form.password}
         onChange={handleChange}

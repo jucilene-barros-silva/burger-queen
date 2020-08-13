@@ -4,9 +4,14 @@
 
 }
 
+
 .button-container {
   display: flex;
   justify-content: space-evenly;
+}
+
+.button-container button {
+ width: 150px;
 }
 
 .card-container{
@@ -17,7 +22,6 @@
 }
 
 .card { 
-  font-family: Poppins;
   font-family: Poppins;
   background: white;
   border-radius: 5px;
@@ -39,56 +43,45 @@
   border-radius: 5px 5px 0 0;  
 }
 
-
 li {
   list-style: none;
 }
 
 .page {
   display: flex;
-  flex-direction: row;
+  width:100%;
 }
 
 .inf-mesa{
   display:flex;
   flex-direction: row;
+  margin: 20px;
+  justify-content: space-around;
+}
+
+.card-lista {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column; 
+  border: blue 2px solid;
+  font-family: Poppins;
+  margin: 5px;
   
 }
 
-
-.table {
-  font-family: Poppins;
-  font-size: 1.2rem;
-  width: 90%;
- 
+.card-titulo { 
+  justify-content: space-between;
+  background-color: lightblue;
 }
 
-
-th, td {
-  padding: 15px;
-  text-align: left;
-}
-.card-lista {
-  display: flex;
-  flex-direction: column;
-  width:50%;
-  border: crimson 2px solid;
-  font-family: Poppins;
-  margin:5px;
-}
-
-.card-titulo {
-  display: flex;
+.card-titulo p {
   margin: 5px;
- 
 }
 
 .card-pedido {
   display: flex;
   align-items: center;
-  margin: 5px;
-  background-color: chartreuse;
-  
+  margin: 5px;   
 }
 
 .card-pedido img {
@@ -96,4 +89,73 @@ th, td {
   height: 50px;
   border-radius: 5px;
   margin-right: 10px;
+}
+
+.bt-container {
+ margin: 10px;
+}
+
+
+
+
+
+.pedido-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;  
+}
+
+.pedido-titulo {
+  display: flex; 
+  margin: 20px 40px;
+  justify-content: space-between;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.pedido-itens {
+  margin: 10px 30px;
+  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr;
+    
+}
+
+.pedido-itens div {
+  display: flex;
+  align-items: center;
+}
+
+.pedido-container img {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+}
+
+.pedido-container img:hover {
+  cursor: pointer; 
+}
+
+.pedido-container span {
+  padding: 10px;
+  font-weight: bold;
+}
+
+
+.total-pedidos {
+  background-color: lightblue;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 30px;
+}
+
+.total-pedidos h2 {
+  align-items: initial;
+ 
+}
+
+.total-pedidos button {
+  width: 200px;  
+  margin: 10px 0;
 }

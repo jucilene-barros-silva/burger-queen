@@ -8,6 +8,9 @@ import './Hall.css';
 import Input from '../../Components/Input.js';
 import SimpleModal from '../../Components/Modal.js';
 import SimpleAlerts from '../../Components/Alert.js'
+import Diminuir from '../../img/menos.svg';
+import Aumentar from '../../img/mais.svg';
+import Excluir from '../../img/lixo.svg';
 
 
 function Hall() {
@@ -34,12 +37,12 @@ function Hall() {
       });
   }, []);
 
-  function openBreakfast() {
+  const openBreakfast= () => {
     setBreakfast(true);
     setMeal(false);
   }
 
-  function openMeal() {
+  const openMeal = () => {
     setBreakfast(false);
     setMeal(true);
   }
@@ -141,7 +144,7 @@ function Hall() {
           orders: pedidos,
           total: total,
           status: "Pendente",
-					hallTime: new Date().toLocaleString('pt-BR')
+					initialTime: new Date().toLocaleString('pt-BR')
         })
         .then(() => {
           setPedidos([]);
@@ -174,6 +177,8 @@ function Hall() {
       <div className="page">
         <div className="menu-container">
           <div className="inf-mesa">
+            <div>
+              <span>Nome Cliente: </span>
             <Input
               autoFocus="true"
               id="clientName"
@@ -184,7 +189,10 @@ function Hall() {
               onChange={handleChange}
               setValue={setForm.clientName}
             />
-            <Input
+            </div>
+          <div>
+            <span>Mesa: </span>
+          <Input
               id="tableNumber"
               label="Número da mesa"
               name="tableNumber"
@@ -193,6 +201,7 @@ function Hall() {
               onChange={handleChange}
               setValue={setForm.tableNumber}
             />
+          </div>
           </div>
           <div className="button-container">
             <Button
@@ -232,31 +241,44 @@ function Hall() {
           </div>
         </div>
         <div className="pedido-container">
-          <th>Qtd.</th>
-          <th>Pedidos</th>
-          <th>Valor</th>
-          {pedidos &&
-            pedidos.map((item) => (
+          <div className="pedido-titulo">
+            <div>Qtd.</div>
+            <div>Pedidos</div>
+            <div>Valor</div>
+            <div>Excluir</div>              
+          </div>     
+          {pedidos && pedidos.map((item) => (              
+            <div className="pedido-itens">
               <div>
-                <table className="table">
-                  <tr>
-                    <td>
-										  {subtracao && <Button name="-" onClick={() => subItem(item)}/>}
-                      <td>{item.count}</td>
-                      <Button name="+" onClick={() => newRequest(item)}/>
-                    </td>
-                    <td>{item.item}</td>
-                    <td>R$ {item.value},00</td>
-                    <td>
-                      <Button onClick={() => deleteItem(item)} name="X" />
-                    </td>
-                  </tr>
-                </table>
+              {subtracao && <img src={Diminuir} alt="Botão Diminuir" name="-" onClick={() => subItem(item)} />}
+              <span>{item.count}</span>
+              <img src={Aumentar} alt="Botão Aumentar" onClick={() => newRequest(item)} />
               </div>
+              <div>
+                <span>{item.item}</span>  
+              </div>
+              <div>
+              <span>R$ {item.value},00</span>
+              </div>
+              <div>
+              <img src={Excluir} alt="Botão Excluir" onClick={() => deleteItem(item)} />  
+              </div>
+                              
+            </div>            
             ))}
-          <h2>Total: R$ {total},00 </h2>
-					<Button onClick={sendOrder} name="Enviar Pedido"/>
-					{error && <SimpleAlerts severity="error">{error}</SimpleAlerts>}
+          <div className='total-pedidos'>
+            <div>
+            <p>Total: </p>
+            <h2>R$ {total},00 </h2>
+            
+            </div> 
+            
+          <Button onClick={sendOrder} name="Enviar Pedido"/>
+					
+          </div>
+            <div>
+            {error && <SimpleAlerts severity="error">{error}</SimpleAlerts>}
+            </div>
         </div>
       </div>
     </div>

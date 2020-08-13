@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import firebase from '../Firebase.js';
 import 'firebase/auth';
 import 'firebase/firestore';
+import Logo from '../img/logo.svg';
 
 const Header = () => {  
 
@@ -19,10 +20,14 @@ const Header = () => {
   };
   
   return (
-  <nav className="header">    
+  <nav className="header"> 
+    <img src={Logo} alt="Logomarca" />
+    <div>
     <NavLink to="hall"><Button name="salao" /></NavLink>
     <NavLink to="kitchen"><Button name="Cozinha" /></NavLink>
+    <NavLink to="orderStatus"><Button name="pedidos" /></NavLink>
     <NavLink to="/"><Button name="Logout" onClick={logout}/></NavLink>
+    </div>
   </nav>
   )
 }
