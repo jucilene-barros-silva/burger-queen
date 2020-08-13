@@ -5,9 +5,10 @@
   
   .container-logo {
     background-image: url(../../img/back-logo.svg);
-    background-repeat: no-repeat;    
     width: 60%;
     height: 100vh;
+    background-size: cover;
+    background-position-x: center;
   }
 
 .cadeado {
@@ -21,6 +22,8 @@
     display: flex;
     flex-direction: column;
     margin: 0 5%;
+    width: 40%;
+   
   }
 
   .container-form .cadeado{
@@ -38,10 +41,16 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
   }
   
+  .container-inf a {
+    text-decoration: none;
+    list-style: none;
+  }
   .container-inf p {   
     margin-top: 10px;
     font-family: 'Arial' ;
     color:var(--primary-color);
+    font-size: 0.9rem;
   }

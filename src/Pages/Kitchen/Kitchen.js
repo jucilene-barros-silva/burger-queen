@@ -3,6 +3,7 @@ import 'firebase/firestore';
 import firebase from '../../Firebase.js';
 import '../Hall/Hall.css';
 import Button from '../../Components/Button.js';
+import Header from '../../Components/Header.js';
 
 const Kitchen = () => {
   const [ order, setOrder ] = useState();
@@ -24,8 +25,13 @@ const Kitchen = () => {
   }, []);
 
   return(
-    <div className="page">
-   {order && order.map((el)=>(
+    
+    <div className="kitchen">
+         <div className="header-container">
+        <Header />
+      </div>
+      <div className="page">
+      {order && order.map((el)=>(
     <div className="card-lista">
        <div className="card-titulo">
        <p>Mesa: {el.table}</p>
@@ -35,18 +41,17 @@ const Kitchen = () => {
    <div>{el.orders.map((item) => (
       <div className="card-pedido">
         <img src={item.img} alt="img" />
-        <p><span>{item.count} x </span> {item.item} </p>
-     
+        <p><span>{item.count} x </span> {item.item} </p>     
       </div>      
    ))}</div>
       <div className="bt-container">
           <Button name='Preparar' />
       </div>  
     </div>))}
+      </div>
+        
   
    </div>
-  )
-
-  
+  )  
 }
 export default Kitchen;

@@ -150,7 +150,7 @@ const FormRegister = () => {
 
       <div className="container-inf">
         <p>
-          "Tem uma conta?<Link to="/">Conecte-se!"</Link>
+          Tem uma conta? <Link to="/"> Conecte-se!</Link>
         </p>
       </div>
     </form>

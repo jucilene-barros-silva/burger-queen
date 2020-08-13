@@ -266,13 +266,18 @@ function Hall() {
             </div>            
             ))}
           <div className='total-pedidos'>
-            <h2>Total: R$ {total},00 </h2>
+            <div>
+            <p>Total: </p>
+            <h2>R$ {total},00 </h2>
+           
+            </div> 
             
           <Button onClick={sendOrder} name="Enviar Pedido"/>
-					{error && <SimpleAlerts severity="error">{error}</SimpleAlerts>}
+					
           </div>
-          <div className='bt-pedidos'>
-          </div>         					
+            <div>
+            {error && <SimpleAlerts severity="error">{error}</SimpleAlerts>}
+            </div>
         </div>
       </div>
     </div>
