@@ -7,8 +7,6 @@ import Header from '../../Components/Header.js';
 
 const Kitchen = () => {
   const [ order, setOrder ] = useState();
-  const [pendente, setPendente ] = useState([]);
-  const [pronto, setPronto] = useState([]);
 
   useEffect(() => {
     firebase
@@ -19,31 +17,30 @@ const Kitchen = () => {
         itens.forEach((item) => arrayItens.push(item.data()));
         setOrder(arrayItens);
         console.log(arrayItens)
-        setPendente(arrayItens.filter(doc => doc.status === 'Pendente'));
-        setPronto(arrayItens.filter(doc=> doc.status === 'Pronto'));
       });
   }, []);
+  
 
   return(
     
     <div className="kitchen">
-         <div className="header-container">
+        <div className="header-container">
         <Header />
       </div>
       <div className="page">
       {order && order.map((el)=>(
     <div className="card-lista">
-       <div className="card-titulo">
-       <p>Mesa: {el.table}</p>
+      <div className="card-titulo">
+      <p>Mesa: {el.table}</p>
         <p>Cliente: {el.name}</p>        
         <p>Data: {el.time}</p>
       </div>
-   <div>{el.orders.map((item) => (
+  <div>{el.orders.map((item) => (
       <div className="card-pedido">
         <img src={item.img} alt="img" />
         <p><span>{item.count} x </span> {item.item} </p>     
       </div>      
-   ))}</div>
+  ))}</div>
       <div className="bt-container">
           <Button name='Preparar' onClick={() => alert('olá')} />
       </div>  
@@ -51,7 +48,7 @@ const Kitchen = () => {
       </div>
         
   
-   </div>
+  </div>
   )  
 }
 export default Kitchen;

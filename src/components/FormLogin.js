@@ -37,12 +37,12 @@ const FormLogin = () => {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((res) => findUserRole(res.user.uid))
-      .then((user) => {
-      if(user === 'hall'){
-        navigate('/hall')
-    } else {
-      navigate('/kitchen')
-    }})
+        .then((user) => {
+        if(user === 'hall'){
+          navigate('/hall')
+      } else {
+        navigate('/kitchen')
+      }})
       .catch((error) => {
         if (error.code === 'auth/wrong-password') {
           return setError('Senha incorreta!');

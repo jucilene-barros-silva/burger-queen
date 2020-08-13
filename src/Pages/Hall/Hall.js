@@ -37,12 +37,12 @@ function Hall() {
       });
   }, []);
 
-  function openBreakfast() {
+  const openBreakfast= () => {
     setBreakfast(true);
     setMeal(false);
   }
 
-  function openMeal() {
+  const openMeal = () => {
     setBreakfast(false);
     setMeal(true);
   }
@@ -112,11 +112,12 @@ function Hall() {
 		}
 	}
 
-	const [subtracao, setSubtracao] = useState()
+	const [subtracao, setSubtracao] = useState(true)
 	const subItem = (item) =>{
 		const indexOrder = pedidos.findIndex((order) => order.item === item.item);
-		if (item.count===1){
-			setSubtracao(null);
+		if (item.count===1){  
+      return document.getElementsByName('-').disabled = true;
+    
 		}else{
 			setSubtracao(pedidos[indexOrder].count--);
 		}
@@ -143,7 +144,7 @@ function Hall() {
           orders: pedidos,
           total: total,
           status: "Pendente",
-					hallTime: new Date().toLocaleString('pt-BR')
+					initialTime: new Date().toLocaleString('pt-BR')
         })
         .then(() => {
           setPedidos([]);
@@ -189,9 +190,9 @@ function Hall() {
               setValue={setForm.clientName}
             />
             </div>
-           <div>
+          <div>
             <span>Mesa: </span>
-           <Input
+          <Input
               id="tableNumber"
               label="Número da mesa"
               name="tableNumber"
@@ -200,8 +201,8 @@ function Hall() {
               onChange={handleChange}
               setValue={setForm.tableNumber}
             />
-           </div>
-           </div>
+          </div>
+          </div>
           <div className="button-container">
             <Button
               className="button-cafe"
@@ -249,7 +250,7 @@ function Hall() {
           {pedidos && pedidos.map((item) => (              
             <div className="pedido-itens">
               <div>
-              <img src={Diminuir} alt="Botão Diminuir" onClick={() => subItem(item)} />
+              {subtracao && <img src={Diminuir} alt="Botão Diminuir" name="-" onClick={() => subItem(item)} />}
               <span>{item.count}</span>
               <img src={Aumentar} alt="Botão Aumentar" onClick={() => newRequest(item)} />
               </div>
@@ -269,7 +270,7 @@ function Hall() {
             <div>
             <p>Total: </p>
             <h2>R$ {total},00 </h2>
-           
+            
             </div> 
             
           <Button onClick={sendOrder} name="Enviar Pedido"/>
