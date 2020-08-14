@@ -3,25 +3,12 @@ import 'firebase/firestore';
 import firebase from '../../Firebase.js';
 import '../Hall/Hall.css';
 import Button from '../../Components/Button.js';
-import HeaderKitchen from '../../Components/Header.js';
+import Header from '../../Components/Header.js';
 
 const Kitchen = () => {
   const [ order, setOrder ] = useState();
-  const [ preparandoStatus, setPreparandoStatus] = useState(true);
-  const [ prontoStatus, setProntoStatus] = useState(false);
-  const [btnPreparando, setBtnPreparando] = useState(true);
-  const [btnPronto, setBtnPronto] = useState(false);
-
-  const openPrendente = () => {
-    setBtnPreparando(true);
-    setBtnPronto(false);
-  };
-
-  const openPreparando = () => {
-    setBtnPreparando(false);
-    setBtnPronto(true);
-  };
-
+  // const [ preparando, setPreparando] = useState(true);
+  // const [ pronto, setPronto] = useState(false);
 
   useEffect(() => {
     firebase
@@ -30,72 +17,30 @@ const Kitchen = () => {
       .onSnapshot((itens) => {
         const arrayItens = [];
         itens.forEach((item) => {
-
         const dataItem = item.data();
         dataItem.uid = item.id
         if (dataItem.status === 'Pendente' || dataItem.status === 'Preparando'){
         arrayItens.push(dataItem)
-        }if (dataItem.status === 'Preparando'){
-          setPreparandoStatus(false)
-          setProntoStatus(true)
-        }else{
-          setPreparandoStatus(true)
-          setProntoStatus(false)
         }
         });
         setOrder(arrayItens);
         console.log(arrayItens)
       });
   }, []);
-  
-  //{status: newStatus }
-  const changeStatus = (index) =>{
+
+  const changeStatus = (newStatus, index) =>{
     firebase
     .firestore()
-    .collection('orders').doc(order[index].uid).update((item) => {
-      if (item.status === 'Pendente') {
-        return {
-          status: 'Preparando',
-          preparingTime: new Date().toLocaleString('pt-BR'),
-          id: firebase.auth().currentUser.uid,
-          cookName: firebase.auth().currentUser.displayName,
-        };
-      }
-      if (item.status === 'Preparando') {
-        return {
-          status: 'Pronto',
-          readyTime: new Date().toLocaleString('pt-BR'),
-        };
-      }
-      if (item.status === 'Pronto') {
-        return {
-          status: 'Entregue',
-          finalTime: new Date().toLocaleString('pt-BR'),
-        };
-      }
-    });
+    .collection('orders').doc(order[index].uid).update({status: newStatus })
   }
 
   return(
     
     <div className="kitchen">
         <div className="header-container">
-        <HeaderKitchen />
+        <Header />
       </div>
       <div className="page">
-      <div className='conj-btn'>
-        <Button
-          className="button-cafe"
-          name="Pendente"
-          onClick={openPrendente}
-        />
-        <Button
-          className="button-cafe"
-          name="Preparando"
-          onClick={openPreparando}
-        />
-        
-        </div>
       {order && order.map((el, index)=>(
     <div className="card-lista">
       <div className="card-titulo">
@@ -111,12 +56,13 @@ const Kitchen = () => {
       </div>      
   ))}</div>
       <div className="bt-container">
-  {preparandoStatus && <Button name='Preparar' onClick={() => changeStatus('Preparando', index ) } /> }
-  {prontoStatus && <Button name='Pronto' onClick={() => changeStatus('Pronto', index ) } /> }
-          </div>  
+      <Button name='Preparar' onClick={() => changeStatus('Preparando', index ) } /> 
+        <Button name='Pronto' onClick={() => changeStatus('Pronto', index ) } /> 
+              </div>  
     </div>))}
       </div>
-      
+
+  
   </div>
   )  
 }

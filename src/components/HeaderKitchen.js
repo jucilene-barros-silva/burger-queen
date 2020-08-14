@@ -23,7 +23,6 @@ const Header = ( children,...props) => {
   <nav className="header"> 
     <img src={Logo} alt="Logomarca" />
     <div>
-    {/* <NavLink to="/kitchen"><Button name="Cozinha" /></NavLink> */}
     <NavLink to="/kitchen"></NavLink>
     <NavLink to="/"><Button name="Logout" onClick={logout} /></NavLink>
     {props.children}

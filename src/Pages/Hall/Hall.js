@@ -11,7 +11,7 @@ import SimpleAlerts from '../../Components/Alert.js'
 import Diminuir from '../../img/menos.svg';
 import Aumentar from '../../img/mais.svg';
 import Excluir from '../../img/lixo.svg';
-
+import { NavLink } from 'react-router-dom';
 
 
 function Hall() {
@@ -27,7 +27,6 @@ function Hall() {
   const [pedidos, setPedidos] = useState([]);
 	const [openModal, setOpenModal] = useState(false);
 	
-
   useEffect(() => {
     firebase
       .firestore()
@@ -38,25 +37,20 @@ function Hall() {
         setMenu(arrayItens);
       });
   }, []);
-
   const openBreakfast= () => {
     setBreakfast(true);
     setMeal(false);
   }
-
   const openMeal = () => {
     setBreakfast(false);
     setMeal(true);
   }
-
   const handleOpenModal = () => {
     setOpenModal(true);
   };
-
   const handleCloseModal = () => {
     setOpenModal(false);
   };
-
   // function getElement(item) {
   //   setTotal(total + Number(item.value));
   //   setPedidos([...pedidos, item]);
@@ -69,14 +63,12 @@ function Hall() {
   //     setOpenModal(true);
   //   }
   // }
-
 	
   function handleChange({ target }) {
     const { id, value } = target;
     console.log(setForm({ ...form, [id]: value }));
   }
 //Função do Gabriel, quantidade está ficando negativa quando clica na foto
-
   // function newRequest(item, operacao) {
 	// 	const indexOrder = pedidos.findIndex((order) => order.item === item.item);
 	// 	if (
@@ -113,7 +105,6 @@ function Hall() {
 			console.log(pedidos);
 		}
 	}
-
 	const [subtracao, setSubtracao] = useState(true)
 	const subItem = (item) =>{
 		const indexOrder = pedidos.findIndex((order) => order.item === item.item);
@@ -130,7 +121,6 @@ function Hall() {
     setPedidos(remove);
     console.log(pedidos);
   };
-
   const sendOrder = (e) => {
     e.preventDefault();
     if (pedidos.length && form.clientName && form.tableNumber) {
@@ -154,8 +144,10 @@ function Hall() {
 						clientName: '',
 						tableNumber: '',
 					});
+          
           setSuccess('Pedido enviado com sucesso');
         });
+        
 
     } else if (!pedidos.length) {
       setError('Um item deve ser selecionado');
@@ -165,15 +157,13 @@ function Hall() {
       setError('Digite o nome do cliente');
     }
   };
-
 	const total = pedidos.reduce((acumulador, itemAtual)=>{
 		return acumulador + (Number(itemAtual.value) * itemAtual.count)
   },0)
-
-
   return (
     <div className="hall">
       <div className="header-container">
+
   <Header />
       </div>
       <div className="page">
@@ -276,7 +266,7 @@ function Hall() {
             </div> 
             
           <Button onClick={sendOrder} name="Enviar Pedido"/>
-					
+
           </div>
             <div>
           {error && <SimpleAlerts severity="error">{error}</SimpleAlerts>}

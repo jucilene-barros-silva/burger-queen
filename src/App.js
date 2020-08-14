@@ -10,11 +10,9 @@ import firebase from './Firebase.js';
 import 'firebase/auth';
 import 'firebase/firestore';
 import OrderStatus from '../src/Pages/OrderStatus/OrderStatus.js'
-
 export default function App() {
   // const navigate = useNavigate;
   const [loggedIn, setLoggedIn] = useState([]);
-
   useEffect(() => {
     firebase
       .auth()
@@ -31,7 +29,6 @@ export default function App() {
       
       });
   }, []);
-
   return(
     <BrowserRouter>
   {loggedIn ? <navigate  to={loggedIn.occupation} /> : <navigate  to={'/'} />}
@@ -40,13 +37,13 @@ export default function App() {
         <Route path='/register' element={<Register/>}/> 
         <Route path='/hall' element={<Hall/>}/> 
         <Route path='/kitchen' element={<Kitchen/>}/>
+        <Route path='/kitchen/orderstatus' element={<OrderStatus/>}/>
         <Route path='/hall/orderstatus' element={<OrderStatus/>}/>
         <Route path="*" element={<Default />}/>
       </Routes>
     </BrowserRouter>
   );
 }
-
 // import React, { useEffect, useState } from 'react';
 // import './App.css';
 // import Login from '../src/Pages/Login/Login.js'
@@ -59,11 +56,9 @@ export default function App() {
 // import 'firebase/auth';
 // import 'firebase/firestore';
 // import OrderStatus from '../src/Pages/OrderStatus/OrderStatus.js'
-
 // export default function App() {
   
 //   const [loggedIn, setLoggedIn] = useState([]);
-
 //   useEffect(() => {
 //     firebase
 //       .auth()
@@ -80,7 +75,6 @@ export default function App() {
 //           console.log(setLoggedIn())
 //       });
 //   }, []);
-
 //   return(
 //     <BrowserRouter>
 //     {loggedIn ? <Redirect  to={loggedIn.occupation} /> : <Redirect  to={'/'} />}

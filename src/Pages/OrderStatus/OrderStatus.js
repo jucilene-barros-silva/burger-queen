@@ -25,48 +25,23 @@ const OrderStatus = () => {
       });
   }, []);
 
-  // Tentando ajustar a Lógica
-  // useEffect(() => {
-  //   firebase
-  //     .firestore()
-  //     .collection('orders')
-  //     .onSnapshot((itens) => {
-  //       const arrayItens = [];
-  //       itens.forEach((item) => {
-
-  //       const dataItem = item.data();
-  //       dataItem.uid = item.id
-  //       if (dataItem.status === 'Pendente' || dataItem.status === 'Preparando'|| dataItem.status === 'Pronto'){
-  //       arrayItens.push(dataItem)
-  //       }if (dataItem.status === 'Preparando'){
-  //       }
-  //       });
-  //       setOrder(arrayItens);
-  //       console.log(arrayItens)
-  //     });
-  // }, []);
-
   const openPendente = () => {
     setPendente(true);
     setPreparando(false);
     setPronto(false);
-
   };
 
   const openPreparando = () => {
     setPendente(false);
     setPreparando(true);
     setPronto(false);
-
   };
 
   const openPronto = () => {
     setPendente(false);
     setPreparando(false);
     setPronto(true);
-
   };
-
 
   const updateStatus = (item) => {
     firebase
@@ -74,7 +49,7 @@ const OrderStatus = () => {
       .collection('orders')
       .doc(item.id)
       .update((item, user) => {
-        if (item.status === 'Pendente' && item.id !== user.uid) {
+        if (item.status === 'Pendente') {
           return {
             status: 'Preparando',
             preparingTime: new Date().toLocaleString('pt-BR'),
@@ -82,13 +57,13 @@ const OrderStatus = () => {
             cookName: firebase.auth().currentUser.displayName,
           };
         }
-        if (item.status === 'Preparando' && item.id !== user.uid) {
+        if (item.status === 'Preparando') {
           return {
             status: 'Pronto',
             readyTime: new Date().toLocaleString('pt-BR'),
           };
         }
-        if (item.status === 'Pronto' && item.id === user.uid) {
+        if (item.status === 'Pronto') {
           return {
             status: 'Entregue',
             finalTime: new Date().toLocaleString('pt-BR'),
@@ -96,38 +71,23 @@ const OrderStatus = () => {
         }
       });
   };
-
-  // const updateStatus = (item) => {
-  //   firebase
-  //     .firestore()
-  //     .collection('orders')
-  //     .doc(item.id)
-  //     .update((item, user) => {
-  //       console.log(item);
-  //       if (item.status === 'Pendente') {
-  //         return {
-  //           status: 'Cancelado',
-  //           preparingTime: new Date().toLocaleString('pt-BR'),            
-  //         };
-  //       }
-  //       if (item.status === 'Pronto') {
-  //         return {
-  //           status: 'Entregue',
-  //           finalTime: new Date().toLocaleString('pt-BR'),
-  //           preparationTime: "Colocar o valor do Cálculo aqui"
-  //         };
-  //       }
-  //     });
-  // };
-
   const deleteOrder = (id) => {
     console.log(deleteOrder)
     firebase
       .firestore()
       .collection('orders')
       .doc(id)
-      .delete()
+      .delete();
   };
+
+
+  // (item, user) => {
+  //   if (item.id === user.uid) {
+  //     return (document.getElementsByName('Deletar').display = false);
+  //   } else {
+  //     document.getElementsByName('Deletar').display = true;
+  //   }
+  // }
 
   return (
     <div className="kitchen">
@@ -146,12 +106,7 @@ const OrderStatus = () => {
           name="Preparando"
           onClick={openPreparando}
         />
-        <Button 
-        className="button-cafe" 
-        name="Pronto" 
-        onClick={openPronto} 
-        />
-      
+        <Button className="button-cafe" name="Pronto" onClick={openPronto} />
         </div>
         {pendente &&
           order
@@ -176,7 +131,6 @@ const OrderStatus = () => {
                     ))}
                 </div>
                 <div className="bt-container">
-                  {/* <Button name="Preparar" onClick={updateStatus} /> */}
                   <Button name="Cancelar Pedido" onClick={deleteOrder} />
                 </div>
               </div>
@@ -203,7 +157,6 @@ const OrderStatus = () => {
                       </div>
                     ))}
                 </div>
-                
               </div>
             ))}
         {pronto &&
@@ -218,7 +171,6 @@ const OrderStatus = () => {
                   <p>Cliente: {el.clientName}</p>
                   <p>Data: {el.finalTime}</p>
                   <p>Status: {el.status}</p>
-                  <p>Tempo de Preparo: {el.status}</p>
                 </div>
                 <div>
                   {el.orders
