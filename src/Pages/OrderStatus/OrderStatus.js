@@ -25,6 +25,27 @@ const OrderStatus = () => {
       });
   }, []);
 
+  // Tentando ajustar a Lógica
+  // useEffect(() => {
+  //   firebase
+  //     .firestore()
+  //     .collection('orders')
+  //     .onSnapshot((itens) => {
+  //       const arrayItens = [];
+  //       itens.forEach((item) => {
+
+  //       const dataItem = item.data();
+  //       dataItem.uid = item.id
+  //       if (dataItem.status === 'Pendente' || dataItem.status === 'Preparando'|| dataItem.status === 'Pronto'){
+  //       arrayItens.push(dataItem)
+  //       }if (dataItem.status === 'Preparando'){
+  //       }
+  //       });
+  //       setOrder(arrayItens);
+  //       console.log(arrayItens)
+  //     });
+  // }, []);
+
   const openPendente = () => {
     setPendente(true);
     setPreparando(false);
@@ -76,19 +97,36 @@ const OrderStatus = () => {
       });
   };
 
+  // const updateStatus = (item) => {
+  //   firebase
+  //     .firestore()
+  //     .collection('orders')
+  //     .doc(item.id)
+  //     .update((item, user) => {
+  //       console.log(item);
+  //       if (item.status === 'Pendente') {
+  //         return {
+  //           status: 'Cancelado',
+  //           preparingTime: new Date().toLocaleString('pt-BR'),            
+  //         };
+  //       }
+  //       if (item.status === 'Pronto') {
+  //         return {
+  //           status: 'Entregue',
+  //           finalTime: new Date().toLocaleString('pt-BR'),
+  //           preparationTime: "Colocar o valor do Cálculo aqui"
+  //         };
+  //       }
+  //     });
+  // };
+
   const deleteOrder = (id) => {
     console.log(deleteOrder)
     firebase
       .firestore()
       .collection('orders')
       .doc(id)
-      .delete((item, user) => {
-        if (item.id === user.uid) {
-          return (document.getElementsByName('Deletar').display = false);
-        } else {
-          document.getElementsByName('Deletar').display = true;
-        }
-      });
+      .delete()
   };
 
   return (
@@ -176,6 +214,7 @@ const OrderStatus = () => {
                   <p>Cliente: {el.clientName}</p>
                   <p>Data: {el.finalTime}</p>
                   <p>Status: {el.status}</p>
+                  <p>Tempo de Preparo: {el.status}</p>
                 </div>
                 <div>
                   {el.orders

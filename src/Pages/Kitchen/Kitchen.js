@@ -7,9 +7,9 @@ import Header from '../../Components/Header.js';
 
 const Kitchen = () => {
   const [ order, setOrder ] = useState();
-  // const [ preparando, setPreparando] = useState(true);
-  // const [ pronto, setPronto] = useState(false);
-  
+  const [ preparandoStatus, setPreparandoStatus] = useState(true);
+  const [ prontoStatus, setProntoStatus] = useState(false);
+
   useEffect(() => {
     firebase
       .firestore()
@@ -22,6 +22,9 @@ const Kitchen = () => {
         dataItem.uid = item.id
         if (dataItem.status === 'Pendente' || dataItem.status === 'Preparando'){
         arrayItens.push(dataItem)
+        }if (dataItem.status === 'Preparando'){
+          setPreparandoStatus(false)
+          setProntoStatus(true)
         }
         });
         setOrder(arrayItens);
@@ -29,10 +32,32 @@ const Kitchen = () => {
       });
   }, []);
   
-  const changeStatus = (newStatus, index) =>{
-     firebase
+  //{status: newStatus }
+  const changeStatus = (index) =>{
+    firebase
     .firestore()
-    .collection('orders').doc(order[index].uid).update({status: newStatus })
+    .collection('orders').doc(order[index].uid).update((item) => {
+      if (item.status === 'Pendente') {
+        return {
+          status: 'Preparando',
+          preparingTime: new Date().toLocaleString('pt-BR'),
+          id: firebase.auth().currentUser.uid,
+          cookName: firebase.auth().currentUser.displayName,
+        };
+      }
+      if (item.status === 'Preparando') {
+        return {
+          status: 'Pronto',
+          readyTime: new Date().toLocaleString('pt-BR'),
+        };
+      }
+      if (item.status === 'Pronto') {
+        return {
+          status: 'Entregue',
+          finalTime: new Date().toLocaleString('pt-BR'),
+        };
+      }
+    });
   }
 
   return(
@@ -57,13 +82,12 @@ const Kitchen = () => {
       </div>      
   ))}</div>
       <div className="bt-container">
-        <Button name='Preparar' onClick={() => changeStatus('Preparando', index ) } /> 
-         <Button name='Pronto' onClick={() => changeStatus('Pronto', index ) } /> 
-               </div>  
+  {preparandoStatus && <Button name='Preparar' onClick={() => changeStatus('Preparando', index ) } /> }
+  {prontoStatus && <Button name='Pronto' onClick={() => changeStatus('Pronto', index ) } /> }
+          </div>  
     </div>))}
       </div>
-        
-  
+      
   </div>
   )  
 }
