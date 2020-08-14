@@ -1,7 +1,11 @@
-import React from './node_modules/react';
+import React from 'react';
+import { Button } from '@material-ui/core';
 
-const Button = () => {
-  return <button></button>
+const BtButton = (props) => {
+  return   (
+    <Button type="submit" fullWidth variant="contained" color="primary" onClick={props.onClick}>{props.name}
+    </Button>
+  )
 }
 
-export default Button;
+export default BtButton;

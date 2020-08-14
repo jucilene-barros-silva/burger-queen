@@ -1,0 +1,163 @@
+
+.menu-container {
+  width: 50%;
+
+}
+
+
+.button-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.button-container button {
+ width: 150px;
+}
+
+.card-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.card { 
+  font-family: Poppins;
+  background: white;
+  border-radius: 5px;
+  margin: 10px;
+  text-align: center;
+  
+}
+.card h5 {
+  background: white;
+}
+.card p {
+  font-weight: bold;
+  color: red;
+}
+
+.card img {
+  width: 150px;
+  height: 80px;
+  border-radius: 5px 5px 0 0;  
+}
+
+li {
+  list-style: none;
+}
+
+.page {
+  display: flex;
+  flex-wrap: wrap;
+  width:100%;
+  justify-content: center;
+}
+
+.inf-mesa{
+  display:flex;
+  flex-direction: row;
+  margin: 20px;
+  justify-content: space-around;
+}
+
+.card-lista {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column; 
+  border: blue 2px solid;
+  font-family: Poppins;
+  margin: 5px;
+  
+}
+
+.card-titulo { 
+  justify-content: space-between;
+  background-color: lightblue;
+}
+
+.card-titulo p {
+  margin: 5px;
+}
+
+.card-pedido {
+  display: flex;
+  align-items: center;
+  margin: 5px;   
+}
+
+.card-pedido img {
+  width: 60px;
+  height: 50px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.bt-container {
+ margin: 10px;
+}
+
+
+
+
+
+.pedido-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;  
+}
+
+.pedido-titulo {
+  display: flex; 
+  margin: 20px 40px;
+  justify-content: space-between;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.pedido-itens {
+  margin: 10px 30px;
+  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr;
+    
+}
+
+.pedido-itens div {
+  display: flex;
+  align-items: center;
+}
+
+.pedido-container img {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+}
+
+.pedido-container img:hover {
+  cursor: pointer; 
+}
+
+.pedido-container span {
+  padding: 10px;
+  font-weight: bold;
+}
+
+
+.total-pedidos {
+  background-color: lightblue;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 30px;
+}
+
+.total-pedidos h2 {
+  align-items: initial;
+ 
+}
+
+.total-pedidos button {
+  width: 200px;  
+  margin: 10px 0;
+}
