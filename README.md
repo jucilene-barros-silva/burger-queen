@@ -1,68 +1,64 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+![](https://user-images.githubusercontent.com/110297/42118136-996b4a52-7bc6-11e8-8a03-ada078754715.jpg)
 
-In the project directory, you can run:
+# Laboratória - 4ª Geração :two_hearts: 
 
-### `npm start`
+****
+## :hamburger: Projeto: Burger Queen
+### Deploy: 
+***
+## 1. Preâmbulo
+Burger Queen é uma plataforma desenvolvida em React para um pequeno restaurante de hambúrgueres, que está crescendo e necessita de uma interface em que se possa realizar pedidos utilizando um tablet, e enviá-los para a cozinha para que sejam preparados de forma ordenada e eficiente.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
 
-### `npm test`
+Veja [aqui](https://trello.com/b/R7md1QCe/burger-queen)  o nosso planejamento.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 2. Desenvolvimento 
+- Protótipo de baixa finalidade 
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Veja [aqui](https://www.figma.com/file/djjVXuYU2FygYzmoKMdlEF/Burger-Queen) o nosso protótipo.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+### :warning: Pré-Requisitos:
+****
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. Node.js e NPM instalado
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 🚀 Rodando o projeto localmente
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+****
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. Clone o projeto na sua máquina
 
-## Learn More
+```sh
+git clone https://github.com/jucilene-barros-silva/burger-queen.git
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. Acesse a pasta do projeto
+ 
+```sh
+cd burger-queen
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. Instale todas as dependências do projeto
 
-### Code Splitting
+```sh
+npm install
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+4. Rode o projeto na sua máquina
 
-### Analyzing the Bundle Size
+```sh
+npm start
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+5. Abra o navegador e visualize o projeto
 
-### Making a Progressive Web App
+```sh
+http://localhost:3000
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+---------------------------------------------------
