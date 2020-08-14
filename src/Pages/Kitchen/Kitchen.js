@@ -14,12 +14,26 @@ const Kitchen = () => {
       .collection('orders')
       .onSnapshot((itens) => {
         const arrayItens = [];
-        itens.forEach((item) => arrayItens.push(item.data()));
+        itens.forEach((item) => {
+
+        const dataItem = item.data();
+        dataItem.uid = item.id
+        if (dataItem.status === 'Pendente' || dataItem.status === 'Preparando'){
+        arrayItens.push(dataItem)
+        }
+        });
         setOrder(arrayItens);
         console.log(arrayItens)
       });
   }, []);
   
+  const changeStatus = (newStatus, index) =>{
+    console.log(newStatus, index)
+    console.log(order[index])
+    firebase
+    .firestore()
+    .collection('orders').doc(order[index].uid).update({status: newStatus})
+  }
 
   return(
     
@@ -28,12 +42,13 @@ const Kitchen = () => {
         <Header />
       </div>
       <div className="page">
-      {order && order.map((el)=>(
+      {order && order.map((el, index)=>(
     <div className="card-lista">
       <div className="card-titulo">
       <p>Mesa: {el.table}</p>
-        <p>Cliente: {el.name}</p>        
-        <p>Data: {el.time}</p>
+        <p>Cliente: {el.clientName}</p>        
+        <p>Data: {el.initialTime}</p>
+        <p>Status: {el.status}</p>
       </div>
   <div>{el.orders.map((item) => (
       <div className="card-pedido">
@@ -42,7 +57,8 @@ const Kitchen = () => {
       </div>      
   ))}</div>
       <div className="bt-container">
-          <Button name='Preparar' onClick={() => alert('olá')} />
+          <Button name='Preparar' onClick={() => changeStatus('Preparando', index ) } />
+          <Button name='Pronto' onClick={() => changeStatus('Pronto', index ) } />
       </div>  
     </div>))}
       </div>

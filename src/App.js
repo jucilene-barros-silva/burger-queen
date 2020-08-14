@@ -12,7 +12,7 @@ import 'firebase/firestore';
 import OrderStatus from '../src/Pages/OrderStatus/OrderStatus.js'
 
 export default function App() {
-  const navigate = useNavigate;
+  // const navigate = useNavigate;
   const [loggedIn, setLoggedIn] = useState([]);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function App() {
               querySnapshot.forEach(doc => setLoggedIn(doc.data()))
             })            
           : setLoggedIn();
-       
+      
       });
   }, []);
 
