@@ -3,12 +3,25 @@ import 'firebase/firestore';
 import firebase from '../../Firebase.js';
 import '../Hall/Hall.css';
 import Button from '../../Components/Button.js';
-import Header from '../../Components/Header.js';
+import HeaderKitchen from '../../Components/Header.js';
 
 const Kitchen = () => {
   const [ order, setOrder ] = useState();
   const [ preparandoStatus, setPreparandoStatus] = useState(true);
   const [ prontoStatus, setProntoStatus] = useState(false);
+  const [btnPreparando, setBtnPreparando] = useState(true);
+  const [btnPronto, setBtnPronto] = useState(false);
+
+  const openPrendente = () => {
+    setBtnPreparando(true);
+    setBtnPronto(false);
+  };
+
+  const openPreparando = () => {
+    setBtnPreparando(false);
+    setBtnPronto(true);
+  };
+
 
   useEffect(() => {
     firebase
@@ -25,6 +38,9 @@ const Kitchen = () => {
         }if (dataItem.status === 'Preparando'){
           setPreparandoStatus(false)
           setProntoStatus(true)
+        }else{
+          setPreparandoStatus(true)
+          setProntoStatus(false)
         }
         });
         setOrder(arrayItens);
@@ -64,9 +80,22 @@ const Kitchen = () => {
     
     <div className="kitchen">
         <div className="header-container">
-        <Header />
+        <HeaderKitchen />
       </div>
       <div className="page">
+      <div className='conj-btn'>
+        <Button
+          className="button-cafe"
+          name="Pendente"
+          onClick={openPrendente}
+        />
+        <Button
+          className="button-cafe"
+          name="Preparando"
+          onClick={openPreparando}
+        />
+        
+        </div>
       {order && order.map((el, index)=>(
     <div className="card-lista">
       <div className="card-titulo">

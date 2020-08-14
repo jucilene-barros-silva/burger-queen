@@ -146,7 +146,11 @@ const OrderStatus = () => {
           name="Preparando"
           onClick={openPreparando}
         />
-        <Button className="button-cafe" name="Pronto" onClick={openPronto} />
+        <Button 
+        className="button-cafe" 
+        name="Pronto" 
+        onClick={openPronto} 
+        />
       
         </div>
         {pendente &&
