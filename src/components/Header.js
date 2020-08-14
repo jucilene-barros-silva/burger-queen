@@ -6,7 +6,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import Logo from '../img/logo.svg';
 
-const Header = () => {  
+const Header = ( children,...props) => {  
 
   function logout(e) {
     e.preventDefault();
@@ -23,10 +23,11 @@ const Header = () => {
   <nav className="header"> 
     <img src={Logo} alt="Logomarca" />
     <div>
-    {/* <NavLink to="hall"><Button name="salao" /></NavLink>
-    <NavLink to="kitchen"><Button name="Cozinha" /></NavLink>
-    <NavLink to="orderStatus"><Button name="pedidos" /></NavLink> */}
-    <NavLink to="/"><Button name="Logout" onClick={logout}/></NavLink>
+    {/* <NavLink to="hall"><Button name="salao" /></NavLink> */}
+    <NavLink to="/hall"><Button name="Salão" /></NavLink>
+    <NavLink to="/hall/orderStatus"><Button name="Pedidos" /></NavLink>
+    <NavLink to="/"><Button name="Logout" onClick={logout} /></NavLink>
+    {props.children}
     </div>
   </nav>
   )

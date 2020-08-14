@@ -40,7 +40,7 @@ export default function App() {
         <Route path='/register' element={<Register/>}/> 
         <Route path='/hall' element={<Hall/>}/> 
         <Route path='/kitchen' element={<Kitchen/>}/>
-        <Route path='/kitchen/orderstatus' element={<OrderStatus/>}/>
+        <Route path='/hall/orderstatus' element={<OrderStatus/>}/>
         <Route path="*" element={<Default />}/>
       </Routes>
     </BrowserRouter>

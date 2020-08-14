@@ -7,7 +7,9 @@ import Header from '../../Components/Header.js';
 
 const Kitchen = () => {
   const [ order, setOrder ] = useState();
-
+  // const [ preparando, setPreparando] = useState(true);
+  // const [ pronto, setPronto] = useState(false);
+  
   useEffect(() => {
     firebase
       .firestore()
@@ -28,11 +30,9 @@ const Kitchen = () => {
   }, []);
   
   const changeStatus = (newStatus, index) =>{
-    console.log(newStatus, index)
-    console.log(order[index])
-    firebase
+     firebase
     .firestore()
-    .collection('orders').doc(order[index].uid).update({status: newStatus})
+    .collection('orders').doc(order[index].uid).update({status: newStatus })
   }
 
   return(
@@ -57,9 +57,9 @@ const Kitchen = () => {
       </div>      
   ))}</div>
       <div className="bt-container">
-          <Button name='Preparar' onClick={() => changeStatus('Preparando', index ) } />
-          <Button name='Pronto' onClick={() => changeStatus('Pronto', index ) } />
-      </div>  
+        <Button name='Preparar' onClick={() => changeStatus('Preparando', index ) } /> 
+         <Button name='Pronto' onClick={() => changeStatus('Pronto', index ) } /> 
+               </div>  
     </div>))}
       </div>
         

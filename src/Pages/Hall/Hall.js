@@ -11,6 +11,7 @@ import SimpleAlerts from '../../Components/Alert.js'
 import Diminuir from '../../img/menos.svg';
 import Aumentar from '../../img/mais.svg';
 import Excluir from '../../img/lixo.svg';
+import { NavLink } from 'react-router-dom';
 
 
 function Hall() {
@@ -18,6 +19,7 @@ function Hall() {
   const [breakfast, setBreakfast] = useState(false);
   const [meal, setMeal] = useState(false);
   const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [form, setForm] = useState({
     clientName: '',
     tableNumber: '',
@@ -152,9 +154,9 @@ function Hall() {
 						clientName: '',
 						tableNumber: '',
 					});
-          setError('Pedido enviado com sucesso');
+          setSuccess('Pedido enviado com sucesso');
         });
-        
+
     } else if (!pedidos.length) {
       setError('Um item deve ser selecionado');
     } else if (!form.tableNumber) {
@@ -172,7 +174,7 @@ function Hall() {
   return (
     <div className="hall">
       <div className="header-container">
-        <Header />
+  <Header />
       </div>
       <div className="page">
         <div className="menu-container">
@@ -277,7 +279,8 @@ function Hall() {
 					
           </div>
             <div>
-            {error && <SimpleAlerts severity="error">{error}</SimpleAlerts>}
+          {error && <SimpleAlerts severity="error">{error}</SimpleAlerts>}
+          {success && <SimpleAlerts severity="success">{success}</SimpleAlerts>}
             </div>
         </div>
       </div>
