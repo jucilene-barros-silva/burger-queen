@@ -11,7 +11,7 @@ import SimpleAlerts from '../../Components/Alert.js'
 import Diminuir from '../../img/menos.svg';
 import Aumentar from '../../img/mais.svg';
 import Excluir from '../../img/lixo.svg';
-import { NavLink } from 'react-router-dom';
+
 
 
 function Hall() {

@@ -179,7 +179,7 @@ const OrderStatus = () => {
                 </div>
                 <div>
                   {el.orders
-                     .map((item) => (
+                    .map((item) => (
                       <div className="card-pedido">
                         <img src={item.img} alt="img" />
                         <p>
@@ -193,7 +193,7 @@ const OrderStatus = () => {
                 </div>
               </div>
             ))}
-         </div>
+        </div>
     </div>
   );
 };
