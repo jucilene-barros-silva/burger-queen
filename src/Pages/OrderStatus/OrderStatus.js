@@ -172,7 +172,7 @@ const OrderStatus = () => {
                       <p>
                         <span>{product.count} x </span> <span>{product.item}</span> 
                       </p>
-                      <p>Total: R$ {item.value},00</p>
+                      <p>Total: R$ {product.value},00</p>
                     </div>
                   ))}
                 </div>
@@ -207,7 +207,7 @@ const OrderStatus = () => {
                       <p>
                         <span>{product.count} x </span> {product.item}
                       </p>
-                      <p>R$ {item.value},00</p>
+                      <p>R$ {product.value},00</p>
                     </div>
                   ))}
                 </div>
@@ -242,7 +242,7 @@ const OrderStatus = () => {
                       <p>
                         <span>{product.count} x </span> {product.item}
                       </p>
-                      <p>R$ {item.value},00</p>
+                      <p>R$ {product.value},00</p>
                     </div>
                   ))}
                 </div>
@@ -278,7 +278,7 @@ const OrderStatus = () => {
                       <p>
                         <span>{product.count} x </span> {product.item}
                       </p>
-                      <span>R$ {item.value},00</span>
+                      <span>R$ {product.value},00</span>
                     </div>
                   ))}
                 </div>
