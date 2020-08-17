@@ -6,10 +6,9 @@ import Button from '../../Components/Button.js';
 import HeaderKitchen from '../../Components/HeaderKitchen.js';
 
 const Kitchen = () => {
-  const [order, setOrder] = useState();
+  const [order, setOrder] = useState([]);
   const [pending, setPending] = useState(true);
   const [preparing, setPreparing] = useState(false);
-  // const [ready, setReady] = useState(false);
 
   useEffect(() => {
     firebase
@@ -20,16 +19,8 @@ const Kitchen = () => {
         itens.forEach((item) => {
           const dataItem = item.data();
           dataItem.uid = item.id;
-          console.log(dataItem.uid)
-          console.log(item.data())
-          if (
-            dataItem.status === 'Pendente' ||
-            dataItem.status === 'Preparando'
-          ) {
-            arrayItens.push(dataItem);
-          }
+          arrayItens.push(dataItem);
         });
-        console.log(arrayItens)
         setOrder(arrayItens);
       });
   }, []);
@@ -57,7 +48,7 @@ const Kitchen = () => {
       });
   };
 
-  const changeRadyStatus = (newStatus, index) => {
+  const changeReadyStatus = (newStatus, index) => {
     firebase
       .firestore()
       .collection('orders')
@@ -74,7 +65,7 @@ const Kitchen = () => {
       <div className="header-container">
         <HeaderKitchen />
       </div>
-      <div className="page">
+      <div className="page-order">
         <div className="conj-btn">
           <Button
             className="button-cafe"
@@ -89,24 +80,26 @@ const Kitchen = () => {
             onClick={openPreparing}
           />
         </div>
-        {order &&
-          order.filter((item) => item.status === 'Pendente')
-          .map((el, index) => (
+        {pending &&
+          order
+          .filter((item) => item.status === 'Pendente')
+          .map((item,index) => (
             <div className="card-lista">
               <div className="card-titulo">
-                <p>Mesa: {el.table}</p>
-                <p>Cliente: {el.clientName}</p>
-                <p>Data: {el.initialTime}</p>
-                <p>Status: {el.status}</p>
+                <p>Atendente:{item.waiterName}</p>
+                <p>Mesa: {item.table}</p>
+                <p>Cliente: {item.clientName}</p>
+                <p>Atendimento: {item.initialTime}</p>
+                <p>Status: {item.status}</p>
               </div>
               <div>
-                {el.orders.map((item) => (
+                {item.orders.map((product) => (
                   <div className="card-pedido">
-                    <img src={item.img} alt="img" />
+                    <img src={product.img} alt="img" />
                     <p>
-                      <span>{item.count} x </span> {item.item}{' '}
+                      <span>{product.count} x </span> <span>{product.item}</span> 
                     </p>
-                    <p>R$ {item.value},00</p>
+                    <p>Total: R$ {product.value},00</p>
                   </div>
                 ))}
               </div>
@@ -119,25 +112,28 @@ const Kitchen = () => {
               </div>
             </div>
           ))}
-          {order &&
+          {preparing &&
           order
           .filter((item) => item.status === 'Preparando')
-          .map((el, index) => (
+          .map((item, index) => (
             <div className="card-lista">
               <div className="card-titulo">
-                <p>Mesa: {el.table}</p>
-                <p>Cliente: {el.clientName}</p>
-                <p>Data: {el.initialTime}</p>
-                <p>Status: {el.status}</p>
+                <p>Atendente:{item.waiterName}</p>
+                <p>Mesa: {item.table}</p>
+                <p>Cliente: {item.clientName}</p>
+                <p>Cozinheiro:{item.cookName}</p>
+                <p>Atendimento: {item.initialTime}</p>
+                <p>Início Preparo: {item.preparingTime}</p>
+                <p>Status: {item.status}</p>
               </div>
               <div>
-                {el.orders.map((item) => (
+                {item.orders.map((product) => (
                   <div className="card-pedido">
-                    <img src={item.img} alt="img" />
+                    <img src={product.img} alt="img" />
                     <p>
-                      <span>{item.count} x </span> {item.item}
+                      <span>{product.count} x </span> {product.item}
                     </p>
-                    <p>R$ {item.value},00</p>
+                    <p>R$ {product.value},00</p>
                   </div>
                 ))}
               </div>
@@ -145,7 +141,7 @@ const Kitchen = () => {
                   <Button
                   color="primary"
                   name="Pronto"
-                  onClick={() => changeRadyStatus('Pronto', index)}
+                  onClick={() => changeReadyStatus('Pronto', index)}
                 />
               </div>
             </div>

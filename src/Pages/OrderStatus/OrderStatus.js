@@ -13,19 +13,6 @@ const OrderStatus = () => {
   const [ready, setReady] = useState(false);
   const [delivered, setDelivered] = useState(false);
 
-  // useEffect(() => {
-  //   firebase
-  //     .firestore()
-  //     .collection('orders')
-  //     .onSnapshot((itens) => {
-  //       const arrayItens = [];
-  //       itens.forEach((item) => arrayItens.push(item.data()));
-  //       console.log(itens);
-  //       setOrder(arrayItens);
-  //       console.log(arrayItens);
-  //     });
-  // }, []);
-
   useEffect(() => {
     firebase
       .firestore()
@@ -35,18 +22,8 @@ const OrderStatus = () => {
         itens.forEach((item) => {
           const dataItem = item.data();
           dataItem.uid = item.id;
-          
-          
-         
           arrayItens.push(dataItem)
-          // if (
-          //   dataItem.status === 'Pendente' ||
-          //   dataItem.status === 'Preparando'
-          // ) {
-          //   arrayItens.push(dataItem);
-          // }
         });
-        console.log(arrayItens)
         setOrder(arrayItens);
       });
   }, []);
@@ -79,31 +56,6 @@ const OrderStatus = () => {
     setDelivered(true);
   };
 
-  const changePreparingStatus= (newStatus, index) => {
-    firebase
-      .firestore()
-      .collection("orders")
-      .doc(order[index].uid)
-      .update({
-        status: newStatus,
-        preparingTime: new Date().toLocaleString('pt-BR'),
-        cookId: firebase.auth().currentUser.uid,
-        cookName: firebase.auth().currentUser.displayName,
-      });
-  };
-
-  const changeRadyStatus = (newStatus, index) => {
-    firebase
-      .firestore()
-      .collection('orders')
-      .doc(order[index].uid)
-      .update({
-        status: newStatus,
-        readyTime: new Date().toLocaleString('pt-BR'),
-      })
-      .then(() => {});
-  };
-
   const changeDeliveredStatus = (newStatus, index) => {
     firebase
       .firestore()
@@ -117,7 +69,7 @@ const OrderStatus = () => {
   };
   const deleteOrder = (index) => {
     firebase.firestore().collection('orders').doc(order[index].uid).delete();
-    console.log('orders');
+    
   };
 
   return (
@@ -145,7 +97,6 @@ const OrderStatus = () => {
           name="Pronto" 
           onClick={openReady} 
           />
-
           <Button
             className="button-cafe"
             color="primary"
@@ -177,11 +128,6 @@ const OrderStatus = () => {
                   ))}
                 </div>
                 <div className="bt-container">
-                  <Button
-                    color="primary"
-                    name="Preparar"
-                    onClick={() => changePreparingStatus('Preparando', index)}
-                  />
                   <Button color="secondary" name="Cancelar Pedido" onClick={() => deleteOrder(index)} />
                 </div>
               </div>
@@ -189,7 +135,7 @@ const OrderStatus = () => {
         {preparing &&
           order
             .filter((item) => item.status === 'Preparando')
-            .map((item, index) => (
+            .map((item) => (
               <div className="card-lista">
                 <div className="card-titulo">
                   <p>Atendente:{item.waiterName}</p>
@@ -212,11 +158,6 @@ const OrderStatus = () => {
                   ))}
                 </div>
                 <div className="bt-container">
-                  <Button
-                    color="primary"
-                    name="Pronto"
-                    onClick={() => changeRadyStatus("Pronto", index)}
-                  />
                 </div>
               </div>
             ))}
