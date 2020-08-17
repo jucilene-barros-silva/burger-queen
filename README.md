@@ -5,7 +5,7 @@
 
 ****
 ## :hamburger: Projeto: Burger Queen
-### Deploy: 
+### Deploy: (https://burguer-queen-a8030.web.app)
 ***
 ## 1. Preâmbulo
 Burger Queen é uma plataforma desenvolvida em React para um pequeno restaurante de hambúrgueres, que está crescendo e necessita de uma interface em que se possa realizar pedidos utilizando um tablet, e enviá-los para a cozinha para que sejam preparados de forma ordenada e eficiente.
