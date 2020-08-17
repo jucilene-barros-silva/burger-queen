@@ -4,14 +4,13 @@
 
 }
 
-
 .button-container {
   display: flex;
   justify-content: space-evenly;
 }
 
 .button-container button {
- width: 150px;
+  width: 150px;
 }
 
 .card-container{
@@ -94,12 +93,8 @@ li {
 }
 
 .bt-container {
- margin: 10px;
+  margin: 10px;
 }
-
-
-
-
 
 .pedido-container {
   width: 50%;
@@ -143,7 +138,6 @@ li {
   font-weight: bold;
 }
 
-
 .total-pedidos {
   background-color: lightblue;
   display: flex;
@@ -154,7 +148,6 @@ li {
 
 .total-pedidos h2 {
   align-items: initial;
- 
 }
 
 .total-pedidos button {

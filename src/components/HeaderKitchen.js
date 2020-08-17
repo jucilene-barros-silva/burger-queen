@@ -22,14 +22,11 @@ const Header = (name, ...props) => {
     <nav className="header">
       <img src={Logo} alt="Logomarca" />
       <div>
-        <NavLink to="/hall">
-          <Button color="primary" name="Salão" />
-        </NavLink>
-        <NavLink to="/hall/orderStatus">
+        <NavLink to="/kitchen">
           <Button color="primary" name="Pedidos" />
         </NavLink>
         <NavLink to="/">
-          <Button  color="secondary" name="Logout" onClick={logout} />
+          <Button color="secondary" name="Logout" onClick={logout} />
         </NavLink>
         {props.name}
       </div>

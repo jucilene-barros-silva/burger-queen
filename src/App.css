@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  text-decoration: none;
   --primary-color: #272d74;
   font-family: Poppins;
 }
@@ -8,7 +9,6 @@
 .header {
   background-color: #3f51b5;
   display: flex;
-
   justify-content: space-between;
   align-items: center;
   box-shadow: 5px black;
@@ -18,7 +18,6 @@
   display: flex;
   margin: 0 60px;
 }
-
 
 .header img {
   width: 100px;

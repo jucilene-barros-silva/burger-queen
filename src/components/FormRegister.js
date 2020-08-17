@@ -139,14 +139,11 @@ const FormRegister = () => {
         setValue={setForm.password}
       />
 
-      {/* <BtRadio id="hall" type="radio"  value="hall" name="occupation" text="Salão" htmlFor="hall"  onChange={e=> setOccupation(e.target.value)}/>
-            
-      <BtRadio id="kitchen" type="radio" value="kitchen" name="occupation" text="Cozinha" htmlFor="kitchen" onChange={e=> setOccupation(e.target.value)}/> */}
       <BtRadio value={occupation} onChange={handleChangeRadio} />
 
       {error && <SimpleAlerts severity="error">{error}</SimpleAlerts>}
 
-      <BtButton name="Cadastrar" />
+      <BtButton color="primary" name="Cadastrar" />
 
       <div className="container-inf">
         <p>
