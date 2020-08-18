@@ -4,7 +4,7 @@ import firebase from '../../Firebase.js';
 import '../Hall/Hall.css';
 import Button from '../../Components/Button.js';
 import Header from '../../Components/Header.js';
-import './OrderStatus.css';
+
 
 const OrderStatus = () => {
   const [order, setOrder] = useState([]);
@@ -77,7 +77,7 @@ const OrderStatus = () => {
         <Header />
       </div>
       <div className="page-order">
-        <div className="conj-btn">
+        <div className="btn">
           <Button
             className="button-cafe"
             color="primary"
@@ -238,10 +238,11 @@ const OrderStatus = () => {
                     <h3>Total: R$ {item.total},00</h3>
                   </div>
                 </div>
-              </div>
+                </div>
             ))}
       </div>
     </div>
+    
   );
 };
 export default OrderStatus;

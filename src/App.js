@@ -14,7 +14,6 @@ import OrderStatus from '../src/Pages/OrderStatus/OrderStatus.js';
 export default function App() {
   const navigate = useNavigate;
   const [loggedIn, setLoggedIn] = useState([]);
-
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       user

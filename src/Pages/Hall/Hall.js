@@ -74,7 +74,6 @@ const Hall = () => {
     const remove = orders.filter((el) => el.item !== product.item);
     setOrders(remove);
   };
-
   const sendOrder = (e) => {
     e.preventDefault();
     if (orders.length && form.clientName && form.tableNumber) {

@@ -6,24 +6,21 @@ import Button from '../../Components/Button.js';
 import HeaderKitchen from '../../Components/HeaderKitchen.js';
 
 const Kitchen = () => {
-  const [order, setOrder] = useState([]);
-  const [pending, setPending] = useState(true);
-  const [preparing, setPreparing] = useState(false);
+	const [ order, setOrder ] = useState([]);
+	const [ pending, setPending ] = useState(true);
+	const [ preparing, setPreparing ] = useState(false);
 
-  useEffect(() => {
-    firebase
-      .firestore()
-      .collection('orders')
-      .onSnapshot((itens) => {
-        const arrayItens = [];
-        itens.forEach((item) => {
-          const dataItem = item.data();
-          dataItem.uid = item.id;
-          arrayItens.push(dataItem);
-        });
-        setOrder(arrayItens);
-      });
-  }, []);
+	useEffect(() => {
+		firebase.firestore().collection('orders').onSnapshot((itens) => {
+			const arrayItens = [];
+			itens.forEach((item) => {
+				const dataItem = item.data();
+				dataItem.uid = item.id;
+				arrayItens.push(dataItem);
+			});
+			setOrder(arrayItens);
+		});
+	}, []);
 
   const openPending = () => {
     setPending(true);
@@ -48,17 +45,17 @@ const Kitchen = () => {
       });
   };
 
-  const changeReadyStatus = (newStatus, index) => {
-    firebase
-      .firestore()
-      .collection('orders')
-      .doc(order[index].uid)
-      .update({
-        status: newStatus,
-        readyTime: new Date().toLocaleString('pt-BR'),
-      })
-      .then(() => {});
-  };
+	const changeReadyStatus = (newStatus, index) => {
+		firebase
+			.firestore()
+			.collection('orders')
+			.doc(order[index].uid)
+			.update({
+				status: newStatus,
+				readyTime: new Date().toLocaleString('pt-BR')
+			})
+			.then(() => {});
+	};
 
   return (
     <div className="kitchen">
@@ -97,7 +94,7 @@ const Kitchen = () => {
                     <div className="card-pedido">
                       <img src={product.img} alt="img" />
                       <p>
-                        <span>{product.count} x </span>{' '}
+                        <span> {product.count} x </span>{' '}
                         <span> {product.item} </span>
                       </p>
                     </div>
