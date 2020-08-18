@@ -1,7 +1,6 @@
 
 .menu-container {
   width: 50%;
-
 }
 
 .button-container {
@@ -11,6 +10,7 @@
 
 .button-container button {
   width: 150px;
+  margin: 0 10px;
 }
 
 .card-container{
@@ -94,6 +94,7 @@ li {
 
 .bt-container {
   margin: 10px;
+  width: 150px
 }
 
 .pedido-container {
@@ -103,8 +104,10 @@ li {
 }
 
 .pedido-titulo {
-  display: flex; 
-  margin: 20px 40px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr; 
+  margin: 20px 30px;
+  align-items: center;
   justify-content: space-between;
   text-transform: uppercase;
   font-weight: bold;

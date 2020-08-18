@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'firebase/firestore';
 import firebase from '../../Firebase.js';
-import '../Hall/Hall.css'
+import '../Hall/Hall.css';
 import Button from '../../Components/Button.js';
 import Header from '../../Components/Header.js';
 import './OrderStatus.css';
@@ -22,7 +22,7 @@ const OrderStatus = () => {
         itens.forEach((item) => {
           const dataItem = item.data();
           dataItem.uid = item.id;
-          arrayItens.push(dataItem)
+          arrayItens.push(dataItem);
         });
         setOrder(arrayItens);
       });
@@ -69,7 +69,6 @@ const OrderStatus = () => {
   };
   const deleteOrder = (index) => {
     firebase.firestore().collection('orders').doc(order[index].uid).delete();
-    
   };
 
   return (
@@ -91,23 +90,23 @@ const OrderStatus = () => {
             name="Preparando"
             onClick={openPreparing}
           />
-          <Button 
-          className="button-cafe" 
-          color="primary" 
-          name="Pronto" 
-          onClick={openReady} 
+          <Button
+            className="button-cafe"
+            color="primary"
+            name="Pronto"
+            onClick={openReady}
           />
           <Button
             className="button-cafe"
             color="primary"
-            name="Entregue"
+            name="Histórico de Pedidos"
             onClick={openDelivered}
           />
         </div>
         {pending &&
           order
             .filter((item) => item.status === 'Pendente')
-            .map((item,index) => (
+            .map((item, index) => (
               <div className="card-lista">
                 <div className="card-titulo">
                   <p>Atendente:{item.waiterName}</p>
@@ -121,14 +120,22 @@ const OrderStatus = () => {
                     <div className="card-pedido">
                       <img src={product.img} alt="img" />
                       <p>
-                        <span>{product.count} x </span> <span>{product.item}</span> 
+                        <span>{product.count} x </span>{' '}
+                        <span>{product.item}</span>
                       </p>
-                      <p>Total: R$ {product.value},00</p>
+                      <p>R$ {product.value},00</p>
                     </div>
                   ))}
+                  <div>
+                    <h3>Total: R$ {item.total},00</h3>
+                  </div>
                 </div>
                 <div className="bt-container">
-                  <Button color="secondary" name="Cancelar Pedido" onClick={() => deleteOrder(index)} />
+                  <Button
+                    color="secondary"
+                    name="Cancelar Pedido"
+                    onClick={() => deleteOrder(index)}
+                  />
                 </div>
               </div>
             ))}
@@ -156,9 +163,11 @@ const OrderStatus = () => {
                       <p>R$ {product.value},00</p>
                     </div>
                   ))}
+                  <div>
+                    <h3>Total: R$ {item.total},00</h3>
+                  </div>
                 </div>
-                <div className="bt-container">
-                </div>
+                <div className="bt-container"></div>
               </div>
             ))}
         {ready &&
@@ -186,6 +195,9 @@ const OrderStatus = () => {
                       <p>R$ {product.value},00</p>
                     </div>
                   ))}
+                  <div>
+                    <h3>Total: R$ {item.total},00</h3>
+                  </div>
                 </div>
                 <div className="bt-container">
                   <Button
@@ -222,9 +234,9 @@ const OrderStatus = () => {
                       <span>R$ {product.value},00</span>
                     </div>
                   ))}
-                </div>
-                <div className="bt-container">
-                  <Button color="secondary" name="Excluir" onClick={() => deleteOrder(index)} />
+                  <div>
+                    <h3>Total: R$ {item.total},00</h3>
+                  </div>
                 </div>
               </div>
             ))}

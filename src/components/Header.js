@@ -21,7 +21,7 @@ const Header = (name, ...props) => {
   return (
     <nav className="header">
       <img src={Logo} alt="Logomarca" />
-      <div>
+      <div className= "button-container">
         <NavLink to="/hall">
           <Button color="primary" name="Salão" />
         </NavLink>
