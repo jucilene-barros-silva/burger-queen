@@ -232,10 +232,7 @@ const OrderStatus = () => {
                     </div>
                   ))}
                 </div>
-                <div className="bt-container">
-                  <Button color="secondary" name="Excluir" onClick={() => deleteOrder(index)} />
                 </div>
-              </div>
             ))}
       </div>
     </div>
