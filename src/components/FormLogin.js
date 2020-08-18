@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import BtButton from '../../src/Components/Button.js';
 import Input from '../../src/Components/Input.js';
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,24 +8,26 @@ import 'firebase/firestore';
 import SimpleAlerts from './Alert.js';
 
 function findUserRole(uid) {
-return firebase.firestore().collection('employees').doc(uid).get()
-  .then((res)=> res.data().occupation) 
+  return firebase
+    .firestore()
+    .collection('employees')
+    .doc(uid)
+    .get()
+    .then((res) => res.data().occupation);
 }
-
 
 const FormLogin = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(false);
 
-
-  const [form, setform] = useState({
+  const [form, setForm] = useState({
     email: '',
     password: '',
   });
 
   function handleChange({ target }) {
     const { id, value } = target;
-    console.log(setform({ ...form, [id]: value }));
+    setForm({ ...form, [id]: value });
   }
 
   function handleSubmit(e) {
@@ -33,16 +35,17 @@ const FormLogin = () => {
     const email = form.email;
     const password = form.password;
 
-  firebase
+    firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((res) => findUserRole(res.user.uid))
-        .then((user) => {
-        if(user === 'hall'){
-          navigate('/hall')
-      } else {
-        navigate('/kitchen')
-      }})
+      .then((user) => {
+        if (user === 'hall') {
+          navigate('/hall');
+        } else {
+          navigate('/kitchen');
+        }
+      })
       .catch((error) => {
         if (error.code === 'auth/wrong-password') {
           return setError('Senha incorreta!');
@@ -52,11 +55,10 @@ const FormLogin = () => {
         }
         if (error.code === 'auth/invalid-email') {
           return setError('E-mail invalido!');
-        } 
-        if (error.code === "auth/email-already-in-use"){
-          return setError('E-mail já cadastrado!')
         }
-        else {
+        if (error.code === 'auth/email-already-in-use') {
+          return setError('E-mail já cadastrado!');
+        } else {
           return setError(`Codigo de error: ${error.code}`);
         }
       });
@@ -65,14 +67,14 @@ const FormLogin = () => {
   return (
     <form noValidate autoComplete="off" onSubmit={handleSubmit}>
       <Input
-        autoFocus ="true"
+        autoFocus="true"
         id="email"
         name="email"
         label="E-mail"
         type="email"
         value={form.email}
         onChange={handleChange}
-        setValue={setform.email}
+        setValue={setForm.email}
       />
 
       <Input
@@ -82,11 +84,12 @@ const FormLogin = () => {
         type="password"
         value={form.password}
         onChange={handleChange}
-        setValue={setform.password}
+        setValue={setForm.password}
       />
-      {error && <SimpleAlerts severity="error">{error}</SimpleAlerts>}<br/>
+      {error && <SimpleAlerts severity="error">{error}</SimpleAlerts>}
+      <br />
 
-      <BtButton name="Acessar" />
+      <BtButton color="primary" name="Acessar" />
 
       <div className="container-inf">
         <p>Esqueceu a senha?</p>{' '}

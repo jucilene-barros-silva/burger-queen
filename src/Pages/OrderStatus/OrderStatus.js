@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import 'firebase/firestore';
 import firebase from '../../Firebase.js';
-import '../Hall/Hall.css';
+import '../Hall/Hall.css'
 import Button from '../../Components/Button.js';
 import Header from '../../Components/Header.js';
 import './OrderStatus.css';
 
 const OrderStatus = () => {
   const [order, setOrder] = useState([]);
-  const [pendente, setPendente] = useState(false);
-  const [preparando, setPreparando] = useState(false);
-  const [pronto, setPronto] = useState(false);
-
+  const [pending, setPending] = useState(true);
+  const [preparing, setPreparing] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [delivered, setDelivered] = useState(false);
 
   useEffect(() => {
     firebase
@@ -19,65 +19,57 @@ const OrderStatus = () => {
       .collection('orders')
       .onSnapshot((itens) => {
         const arrayItens = [];
-        itens.forEach((item) => arrayItens.push(item.data()));
+        itens.forEach((item) => {
+          const dataItem = item.data();
+          dataItem.uid = item.id;
+          arrayItens.push(dataItem)
+        });
         setOrder(arrayItens);
-        console.log(arrayItens);
       });
   }, []);
 
-  const openPendente = () => {
-    setPendente(true);
-    setPreparando(false);
-    setPronto(false);
+  const openPending = () => {
+    setPending(true);
+    setPreparing(false);
+    setReady(false);
+    setDelivered(false);
   };
 
-  const openPreparando = () => {
-    setPendente(false);
-    setPreparando(true);
-    setPronto(false);
+  const openPreparing = () => {
+    setPending(false);
+    setPreparing(true);
+    setReady(false);
+    setDelivered(false);
   };
 
-  const openPronto = () => {
-    setPendente(false);
-    setPreparando(false);
-    setPronto(true);
+  const openReady = () => {
+    setPending(false);
+    setPreparing(false);
+    setReady(true);
+    setDelivered(false);
   };
 
-  const updateStatus = (item) => {
+  const openDelivered = () => {
+    setPending(false);
+    setPreparing(false);
+    setReady(false);
+    setDelivered(true);
+  };
+
+  const changeDeliveredStatus = (newStatus, index) => {
     firebase
       .firestore()
       .collection('orders')
-      .doc(item.id)
-      .update((item, user) => {
-        if (item.status === 'Pendente') {
-          return {
-            status: 'Preparando',
-            preparingTime: new Date().toLocaleString('pt-BR'),
-            id: firebase.auth().currentUser.uid,
-            cookName: firebase.auth().currentUser.displayName,
-          };
-        }
-        if (item.status === 'Preparando') {
-          return {
-            status: 'Pronto',
-            readyTime: new Date().toLocaleString('pt-BR'),
-          };
-        }
-        if (item.status === 'Pronto') {
-          return {
-            status: 'Entregue',
-            finalTime: new Date().toLocaleString('pt-BR'),
-          };
-        }
-      });
+      .doc(order[index].uid)
+      .update({
+        status: newStatus,
+        finalTime: new Date().toLocaleString('pt-BR'),
+      })
+      .then(() => {});
   };
-  const deleteOrder = (id) => {
-    console.log(deleteOrder)
-    firebase
-      .firestore()
-      .collection('orders')
-      .doc(id)
-      .delete();
+  const deleteOrder = (index) => {
+    firebase.firestore().collection('orders').doc(order[index].uid).delete();
+    
   };
 
 
@@ -95,100 +87,157 @@ const OrderStatus = () => {
         <Header />
       </div>
       <div className="page-order">
-        <div className='conj-btn'>
-        <Button
-          className="button-cafe"
-          name="Pendente"
-          onClick={openPendente}
-        />
-        <Button
-          className="button-cafe"
-          name="Preparando"
-          onClick={openPreparando}
-        />
-        <Button className="button-cafe" name="Pronto" onClick={openPronto} />
+        <div className="conj-btn">
+          <Button
+            className="button-cafe"
+            color="primary"
+            name="Pendente"
+            onClick={openPending}
+          />
+          <Button
+            className="button-cafe"
+            color="primary"
+            name="Preparando"
+            onClick={openPreparing}
+          />
+          <Button 
+          className="button-cafe" 
+          color="primary" 
+          name="Pronto" 
+          onClick={openReady} 
+          />
+          <Button
+            className="button-cafe"
+            color="primary"
+            name="Entregue"
+            onClick={openDelivered}
+          />
         </div>
-        {pendente &&
+        {pending &&
           order
             .filter((item) => item.status === 'Pendente')
-            .map((el) => (
+            .map((item,index) => (
               <div className="card-lista">
                 <div className="card-titulo">
-                  <p>Garçom:{el.waiterName}</p>
-                  <p>Mesa: {el.table}</p>
-                  <p>Cliente: {el.clientName}</p>
-                  <p>Data: {el.initialTime}</p>
-                  <p>Status: {el.status}</p>
+                  <p>Atendente:{item.waiterName}</p>
+                  <p>Mesa: {item.table}</p>
+                  <p>Cliente: {item.clientName}</p>
+                  <p>Atendimento: {item.initialTime}</p>
+                  <p>Status: {item.status}</p>
                 </div>
                 <div>
-                  {el.orders.map((item) => (
-                      <div className="card-pedido">
-                        <img src={item.img} alt="img" />
-                        <p>
-                          <span>{item.count} x </span> {item.item}{' '}
-                        </p>
-                      </div>
-                    ))}
+                  {item.orders.map((product) => (
+                    <div className="card-pedido">
+                      <img src={product.img} alt="img" />
+                      <p>
+                        <span>{product.count} x </span> <span>{product.item}</span> 
+                      </p>
+                      <p>Total: R$ {product.value},00</p>
+                    </div>
+                  ))}
                 </div>
                 <div className="bt-container">
-                  <Button name="Cancelar Pedido" onClick={deleteOrder} />
+                  <Button color="secondary" name="Cancelar Pedido" onClick={() => deleteOrder(index)} />
                 </div>
               </div>
             ))}
-        {preparando &&
-          order.filter((item) => item.status === 'Preparando').map((el) => (
+        {preparing &&
+          order
+            .filter((item) => item.status === 'Preparando')
+            .map((item) => (
               <div className="card-lista">
                 <div className="card-titulo">
-                  <p>Garçom:{el.waiterName}</p>
-                  <p>Cozinheiro:{el.cookName}</p>
-                  <p>Mesa: {el.table}</p>
-                  <p>Cliente: {el.clientName}</p>
-                  <p>Data: {el.initialTime}</p>
-                  <p>Status: {el.status}</p>
+                  <p>Atendente:{item.waiterName}</p>
+                  <p>Mesa: {item.table}</p>
+                  <p>Cliente: {item.clientName}</p>
+                  <p>Cozinheiro:{item.cookName}</p>
+                  <p>Atendimento: {item.initialTime}</p>
+                  <p>Início Preparo: {item.preparingTime}</p>
+                  <p>Status: {item.status}</p>
                 </div>
                 <div>
-                  {el.orders
-                    .map((item) => (
-                      <div className="card-pedido">
-                        <img src={item.img} alt="img" />
-                        <p>
-                          <span>{item.count} x </span> {item.item}
-                        </p>
-                      </div>
-                    ))}
+                  {item.orders.map((product) => (
+                    <div className="card-pedido">
+                      <img src={product.img} alt="img" />
+                      <p>
+                        <span>{product.count} x </span> {product.item}
+                      </p>
+                      <p>R$ {product.value},00</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="bt-container">
                 </div>
               </div>
             ))}
-        {pronto &&
+        {ready &&
           order
             .filter((item) => item.status === 'Pronto')
-            .map((el) => (
+            .map((item, index) => (
               <div className="card-lista">
                 <div className="card-titulo">
-                  <p>Garçom:{el.waiterName}</p>
-                  <p>Cozinheiro:{el.cookName}</p>
-                  <p>Mesa: {el.table}</p>
-                  <p>Cliente: {el.clientName}</p>
-                  <p>Data: {el.finalTime}</p>
-                  <p>Status: {el.status}</p>
+                  <p>Atendente:{item.waiterName}</p>
+                  <p>Mesa: {item.table}</p>
+                  <p>Cliente: {item.clientName}</p>
+                  <p>Cozinheiro:{item.cookName}</p>
+                  <p>Atendimento: {item.initialTime}</p>
+                  <p>Início Preparo: {item.preparingTime}</p>
+                  <p>Término Preparo: {item.readyTime}</p>
+                  <p>Status: {item.status}</p>
                 </div>
                 <div>
-                  {el.orders
-                    .map((item) => (
-                      <div className="card-pedido">
-                        <img src={item.img} alt="img" />
-                        <p>
-                          <span>{item.count} x </span> {item.item}{' '}
-                        </p>
-                      </div>
-                    ))}
+                  {item.orders.map((product) => (
+                    <div className="card-pedido">
+                      <img src={product.img} alt="img" />
+                      <p>
+                        <span>{product.count} x </span> {product.item}
+                      </p>
+                      <p>R$ {product.value},00</p>
+                    </div>
+                  ))}
                 </div>
                 <div className="bt-container">
-                  <Button name="Entregar" onClick={updateStatus} />
+                  <Button
+                    color="primary"
+                    name="Entregar"
+                    onClick={() => changeDeliveredStatus('Entregue', index)}
+                  />
                 </div>
               </div>
             ))}
-        </div>
+        {delivered &&
+          order
+            .filter((item) => item.status === 'Entregue')
+            .map((item, index) => (
+              <div className="card-lista">
+                <div className="card-titulo">
+                  <p>Atendente:{item.waiterName}</p>
+                  <p>Mesa: {item.table}</p>
+                  <p>Cliente: {item.clientName}</p>
+                  <p>Cozinheiro:{item.cookName}</p>
+                  <p>Atendimento: {item.initialTime}</p>
+                  <p>Início Preparo: {item.preparingTime}</p>
+                  <p>Término Preparo: {item.readyTime}</p>
+                  <p>Pedido entregue: {item.finalTime}</p>
+                  <p>Status: {item.status}</p>
+                </div>
+                <div>
+                  {item.orders.map((product) => (
+                    <div className="card-pedido">
+                      <img src={product.img} alt="img" />
+                      <p>
+                        <span>{product.count} x </span> {product.item}
+                      </p>
+                      <span>R$ {product.value},00</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="bt-container">
+                  <Button color="secondary" name="Excluir" onClick={() => deleteOrder(index)} />
+                </div>
+              </div>
+            ))}
+      </div>
     </div>
   );
 };

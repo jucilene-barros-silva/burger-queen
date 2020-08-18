@@ -6,8 +6,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import Logo from '../img/logo.svg';
 
-const Header = ( children,...props) => {  
-
+const Header = (name, ...props) => {
   function logout(e) {
     e.preventDefault();
     firebase
@@ -17,19 +16,24 @@ const Header = ( children,...props) => {
         window.location.href = '/';
       })
       .catch(console.error);
-  };
-  
+  }
+
   return (
-  <nav className="header"> 
-    <img src={Logo} alt="Logomarca" />
-    <div>
-    {/* <NavLink to="hall"><Button name="salao" /></NavLink> */}
-    <NavLink to="/hall"><Button name="Salão" /></NavLink>
-    <NavLink to="/hall/orderStatus"><Button name="Pedidos" /></NavLink>
-    <NavLink to="/"><Button name="Logout" onClick={logout} /></NavLink>
-    {props.children}
-    </div>
-  </nav>
-  )
-}
+    <nav className="header">
+      <img src={Logo} alt="Logomarca" />
+      <div className="button-container">
+        <NavLink to="/hall">
+          <Button color="primary" name="Salão" />
+        </NavLink>
+        <NavLink to="/hall/orderStatus">
+          <Button color="primary" name="Pedidos" />
+        </NavLink>
+        <NavLink to="/">
+          <Button  color="secondary" name="Logout" onClick={logout} />
+        </NavLink>
+        {props.name}
+      </div>
+    </nav>
+  );
+};
 export default Header;
