@@ -1,12 +1,12 @@
 
 .menu-container {
   width: 50%;
-
 }
 
 .button-container {
   display: flex;
   justify-content: space-evenly;
+  
 }
 
 .button-container button {
@@ -65,16 +65,18 @@ li {
 .card-lista {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: column; 
+  justify-content: space-evenly;
   border: blue 2px solid;
   font-family: Poppins;
-  margin: 5px;
+  margin: 10px;
+ 
   
 }
 
 .card-titulo { 
   justify-content: space-between;
   background-color: lightblue;
+  padding: 0 40px;
 }
 
 .card-titulo p {
@@ -97,6 +99,10 @@ li {
 .bt-container {
   margin: 10px;
   width: 150px;
+  justify-content: center;
+    display: flex;
+    align-items: center;
+
 }
 
 .pedido-container {
@@ -106,6 +112,11 @@ li {
 }
 
 .pedido-titulo {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr; 
+  margin: 20px 30px;
+  align-items: center;
+  justify-content: space-between;
   text-transform: uppercase;
   font-weight: bold; 
   margin: 20px 30px;
@@ -161,3 +172,29 @@ li {
   width: 200px;  
   margin: 10px 0;
 }
+
+.page-order .btn {
+  display: flex;
+  margin: 10px;
+  padding:10px;
+  justify-content: space-around;
+  
+}
+
+.page-order .btn button {
+ width: 150px;
+  
+}
+
+.page-order .conj-btn{
+  display: flex;
+  margin: 10px;
+  padding:10px;
+  justify-content: space-around;
+} 
+
+.page-order .conj-btn button{  
+  padding: 20px;
+  width: 150px;
+}
+
