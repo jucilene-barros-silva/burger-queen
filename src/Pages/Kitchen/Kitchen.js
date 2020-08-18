@@ -54,7 +54,7 @@ const Kitchen = () => {
       .collection('orders')
       .doc(order[index].uid)
       .update({
-        status: 'Pronto',
+        status: newStatus,
         readyTime: new Date().toLocaleString('pt-BR'),
       })
       .then(() => {});
