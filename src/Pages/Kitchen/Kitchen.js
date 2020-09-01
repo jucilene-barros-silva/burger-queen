@@ -17,7 +17,7 @@ const Kitchen = () => {
 				const dataItem = item.data();
 				dataItem.uid = item.id;
 				arrayItens.push(dataItem);
-			});
+      })    
 			setOrder(arrayItens);
 		});
 	}, []);
