@@ -18,7 +18,7 @@ Veja [aqui](https://trello.com/b/R7md1QCe/burger-queen)  o nosso planejamento.
 
 Veja [aqui](https://www.figma.com/file/djjVXuYU2FygYzmoKMdlEF/Burger-Queen) o nosso protótipo.
 
-![](prototipo.png)
+![](src/Burger_Queen.png)
 ![](src/img/login.png)
 ![](src/img/cadastro.png)
 
