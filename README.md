@@ -91,3 +91,5 @@ firebase deploy
 ```
 
 ---------------------------------------------------
+## Desenvolvido com :heart: por Jucilene Barros e Milena Ferraz
+---------------------------------------------------
